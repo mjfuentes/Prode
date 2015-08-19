@@ -1,4 +1,9 @@
 <div align="center" class="center">	
+	<% if @error %>
+    <div id="error_explanation">
+     <h2><%= @error %></h2>
+    </div>
+  	<% end %>
 	<form id="registerForm" action="/login" method="post">
 		<div>
 			<label class="form-label">Username:</label>

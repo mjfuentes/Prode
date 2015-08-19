@@ -1,5 +1,10 @@
 <div align="center" class="center">
   <h1> Welcome to Prode 2015!</h1>
-  <form action="/login"><input class="button" type="submit" value="Login"/></form>
+	<% if @error %>
+    <div id="error_explanation">
+     <h2><%= @error %></h2>
+    </div>
+  	<% end %>
+  <form action="/login"><input class="button" type="submit" value="Login"/></form><br/>
   <form action="/register_form"><input class="button" type="submit" value="Register"/></form>
 </div>

@@ -1,4 +1,11 @@
 <div align="center" class="center">	
+
+	 <% if @error %>
+	    <div id="error_explanation">
+         <%= @error %>
+	    </div>
+	  <% end %>
+
 	<form id="registerForm" action="/players/new" method="post">
 		<div>
 			<label class="form-label">Full name:</label>
