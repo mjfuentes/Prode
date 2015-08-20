@@ -1,0 +1,38 @@
+<div align="center" class="center">
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Matches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Home team</th>
+      <th>Away team</th>
+      <th>Home score</th>
+      <th>Away score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= match.home_team %></td>
+        <td><%= match.away_team %></td>
+        <td><% if match.finished %><%= match.home_score %><% else %> - <%end%></td>
+        <td><% if match.finished %><%= match.away_score %><% else %> - <%end%></td>
+        <% if !match.finished %>
+        <td><%= link_to 'Add result', edit_match_path(match) %></td>
+        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Match', new_match_path %>
+<%= link_to 'Back', controller: "main", action: "home" %>
+</div>

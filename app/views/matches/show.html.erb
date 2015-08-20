@@ -1,0 +1,37 @@
+<div align="center" class="center"> 
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Home team:</strong>
+  <%= @match.home_team %>
+</p>
+
+<p>
+  <strong>Away team:</strong>
+  <%= @match.away_team %>
+</p>
+
+<p>
+  <strong>Home score:</strong>
+  <% if @match.finished %>
+  <%= @match.home_score %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Away score:</strong>
+  <% if @match.finished %>
+  <%= @match.away_score %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Finished:</strong>
+  <%= @match.finished %>
+</p>
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>
+
+</div>

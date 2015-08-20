@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
-  post 'players/new'
-  get  'home' => 'main#home'
+  resources :matchdays
+  resources :matches
+  # ROOT 
   root 'main#welcome'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  # POST METHODS
+  post 'players/new'
+  post 'login' => 'main#login'  
+  post 'match' => 'matches#create'
 
-  # You can have the root of your site routed with "root"
+  # GET METHODS
+  get 'home' => 'main#home'
   get 'login' => 'main#login_form'
-  post 'login' => 'main#login'
   get 'register_form' => 'main#register'
+  get 'logout' => 'main#logout'
+  get 'matches/new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,3 +1,10 @@
-<div align="center" class="center">	
-<h1>WELCOME !</h1>
-<%= @player.inspect %>
+<div align="center" class="center">
+  <h1> Welcome <%= session[:username] %>!</h1>
+  <% if is_admin %>
+  	  <form action="/matchdays"><input class="button" type="submit" value="Fechas"/></form>
+  <% else %>
+	  <form action="/play"><input class="button" type="submit" value="Play"/></form>
+	  <form action="/history"><input class="button" type="submit" value="History"/></form>
+  <% end %>
+  <form action="/logout"><input class="button" type="submit" value="Logout"/></form>
+</div>

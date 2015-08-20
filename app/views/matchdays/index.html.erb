@@ -1,0 +1,30 @@
+<div align="center" class="center"> 
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Matchdays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Numero</th>
+      <th>Estado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matchdays.each do |matchday| %>
+      <tr>
+        <td><%= matchday.id %></td>
+        <td><% if matchday.finished %>Finalizada<%else%>Activa<%end%></td>
+        <td><%= link_to 'Show', matchday %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Matchday', new_matchday_path %>
+</div>

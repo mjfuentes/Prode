@@ -11,7 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818152432) do
+ActiveRecord::Schema.define(version: 20150820191932) do
+
+  create_table "guesses", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "match_id",   limit: 4
+    t.integer  "home_score", limit: 4
+    t.integer  "away_score", limit: 4
+    t.integer  "points",     limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "matchdays", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.boolean  "finished",   limit: 1
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.string   "home_team",   limit: 255
+    t.string   "away_team",   limit: 255
+    t.integer  "home_score",  limit: 4
+    t.integer  "away_score",  limit: 4
+    t.boolean  "finished",    limit: 1
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "matchday_id", limit: 4
+  end
 
   create_table "players", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -19,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150818152432) do
     t.string   "password",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.boolean  "admin",      limit: 1
   end
 
 end
