@@ -47,7 +47,9 @@ class MatchdaysController < ApplicationController
 
   def end
     @matchday = Matchday.find_by id: params[:id]
-    if (Match.where(matchday: @matchday, finished: false) == 0)
+    @unfinished_matches = Match.find_by(matchday: @matchday, finished: false)
+    if (!@unfinished_matches)
+      calculate_points(@matchday)
       @matchday.finished = true
       if @matchday.save
         flash[:notice] = 'Matchday was finished successfully.'
@@ -120,4 +122,27 @@ class MatchdaysController < ApplicationController
     def matchday_params
       params[:matchday]
     end
+
+    def calculate_points(matchday)
+      matchday.matches.each { 
+        |match|
+        guesses = Guess.where match_id: match.id
+        guesses.each {
+          |guess|
+          if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
+            ((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
+            ((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
+            if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
+              guess.points = 5
+            else
+              guess.points = 2
+            end
+          else
+            guess.points = 0
+          end
+          guess.save
+        }
+      }
+    end
+
 end

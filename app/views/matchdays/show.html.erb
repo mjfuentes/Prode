@@ -24,7 +24,7 @@
         <td><%= match.away_team %></td>
         <td><% if match.finished %><%= match.home_score %><% else %> - <%end%></td>
         <td><% if match.finished %><%= match.away_score %><% else %> - <%end%></td>
-        <% if !@matchday.finished & @matchday.started %>
+        <% if !@matchday.finished & @matchday.started & (match.finished == false) %>
         <td><%= link_to 'Add result', edit_match_path(match) %></td>
         <% elsif !@matchday.started %>
         <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
