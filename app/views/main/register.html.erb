@@ -1,9 +1,7 @@
 <div align="center" class="center">	
-	 <% if @error %>
-	    <div id="error_explanation">
-         <%= @error %>
-	    </div>
-	  <% end %>
+	<% if flash[:notice] %>
+		<div id="notice"><%= flash[:notice] %></div>
+	<% end %>
 
 	<form id="registerForm" action="/players/new" method="post">
 		<div>
@@ -20,4 +18,5 @@
 		</div>
 		<input type="submit" class="button" value ="Register"/>
 	</form>
+	<%= link_to 'Back', controller: "main", action: "welcome" %>
 </div>

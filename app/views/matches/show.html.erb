@@ -1,7 +1,8 @@
 <div align="center" class="center"> 
 
-<p id="notice"><%= notice %></p>
-
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
 <p>
   <strong>Home team:</strong>
   <%= @match.home_team %>

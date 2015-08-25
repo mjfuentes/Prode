@@ -10,40 +10,71 @@ class MatchdaysController < ApplicationController
   # GET /matchdays/1
   # GET /matchdays/1.json
   def show
-    @matches = Match.find_by matchday: @matchday.id
-    render "matches/index"
+    @matches = Match.where matchday: @matchday
   end
 
   # GET /matchdays/new
   def new
-    @active_matchday = Matchday.find_by finished: false
-    if !@active_matchday
-      @matchday = Matchday.new(finished: false)
+    if (Matchday.where(finished:false).count == 0)
+      @matchday = Matchday.new(finished: false, started: false)
       if @matchday.save
-        redirect_to "/matchdays/" + @matchday.id
+        redirect_to action: "show", id: @matchday.id
       else
-        redirect_to action: "index", notice: 'Could not create matchday.' 
+        flash[:notice] = 'Could not create matchday.' 
+        redirect_to action: "index"
       end
     else
-      redirect_to action: "index", notice: 'The already is an active matchday.' 
-    end
+      flash[:notice] = 'There already is an active matchday.'
+      redirect_to action: "index"
+    end 
   end
 
   # GET /matchdays/1/edit
   def edit
   end
 
+  def start
+    @matchday = Matchday.find_by id: params[:id]
+    @matchday.started = true
+    if @matchday.save
+      flash[:notice] = 'Matchday was started successfully.'
+      redirect_to @matchday
+    else
+        flash[:notice] = 'Matchday could not be started.' 
+        redirect_to @matchday
+    end 
+  end
+
+  def end
+    @matchday = Matchday.find_by id: params[:id]
+    if (Match.where(matchday: @matchday, finished: false) == 0)
+      @matchday.finished = true
+      if @matchday.save
+        flash[:notice] = 'Matchday was finished successfully.'
+        redirect_to @matchday
+      else
+        flash[:notice] = 'Matchday could not be finished.'
+        redirect_to @matchday
+      end
+    else
+      flash[:notice] = 'There are still active matches.'
+      redirect_to @matchday
+    end
+  end
+
   # POST /matchdays
   # POST /matchdays.json
   def create
     @matchday = Matchday.new(matchday_params)
-
     respond_to do |format|
       if @matchday.save
-        format.html { redirect_to @matchday, notice: 'Matchday was successfully created.' }
+        format.html { 
+          flash[:notice] = 'Matchday was successfully created.'
+          redirect_to @matchday
+        }
         format.json { render :show, status: :created, location: @matchday }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @matchday.errors, status: :unprocessable_entity }
       end
     end
@@ -54,7 +85,10 @@ class MatchdaysController < ApplicationController
   def update
     respond_to do |format|
       if @matchday.update(matchday_params)
-        format.html { redirect_to @matchday, notice: 'Matchday was successfully updated.' }
+        format.html { 
+          flash[:notice] = 'Matchday was successfully updated.' 
+          redirect_to @matchday
+        }
         format.json { render :show, status: :ok, location: @matchday }
       else
         format.html { render :edit }
@@ -68,7 +102,10 @@ class MatchdaysController < ApplicationController
   def destroy
     @matchday.destroy
     respond_to do |format|
-      format.html { redirect_to matchdays_url, notice: 'Matchday was successfully destroyed.' }
+      format.html { 
+        flash[:notice] = 'Matchday was successfully destroyed.'
+        redirect_to @matchday  
+      }
       format.json { head :no_content }
     end
   end

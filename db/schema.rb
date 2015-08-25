@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820191932) do
+ActiveRecord::Schema.define(version: 20150821193806) do
 
   create_table "guesses", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150820191932) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.boolean  "finished",   limit: 1
+    t.boolean  "started",    limit: 1
   end
 
   create_table "matches", force: :cascade do |t|

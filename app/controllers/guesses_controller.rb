@@ -28,7 +28,10 @@ class GuessesController < ApplicationController
 
     respond_to do |format|
       if @guess.save
-        format.html { redirect_to @guess, notice: 'Guess was successfully created.' }
+        format.html { 
+          flash[:notice] = 'Guess was successfully created.' 
+          redirect_to @guess
+        }
         format.json { render :show, status: :created, location: @guess }
       else
         format.html { render :new }
@@ -42,7 +45,10 @@ class GuessesController < ApplicationController
   def update
     respond_to do |format|
       if @guess.update(guess_params)
-        format.html { redirect_to @guess, notice: 'Guess was successfully updated.' }
+        format.html { 
+          flash[:notice] = 'Guess was successfully updated.' 
+          redirect_to @guess
+        }
         format.json { render :show, status: :ok, location: @guess }
       else
         format.html { render :edit }
@@ -56,7 +62,10 @@ class GuessesController < ApplicationController
   def destroy
     @guess.destroy
     respond_to do |format|
-      format.html { redirect_to guesses_url, notice: 'Guess was successfully destroyed.' }
+      format.html { 
+        flash[:notice] = 'Guess was successfully destroyed.' 
+        redirect_to guesses_url
+      }
       format.json { head :no_content }
     end
   end

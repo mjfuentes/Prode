@@ -1,4 +1,7 @@
 <%= form_for(@match) do |f| %>
+  <% if flash[:notice] %>
+    <div id="notice"><%= flash[:notice] %></div>
+  <% end %>
   <% if @match.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
@@ -22,4 +25,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+  <%= f.hidden_field :matchday_id, :value => @matchday.id %>
 <% end %>

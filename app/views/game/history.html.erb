@@ -1,0 +1,33 @@
+<div align="center" class="center"> 
+
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<h1>Listing Matchdays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Matchday</th>
+      <th>Guesses</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matchdays.each do |matchday| %>
+      <tr>
+        <td><%= matchday['id'] %></td>
+        <td><%= matchday['matches'].count %></td>
+        <td><%= link_to 'Show', controller: "game", action: "show", id: matchday['id'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', controller: "main", action: "home" %>
+
+</div>

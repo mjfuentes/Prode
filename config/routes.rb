@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :matchdays
   resources :matches
+  resources :guesses
   # ROOT 
   root 'main#welcome'
 
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   post 'players/new'
   post 'login' => 'main#login'  
   post 'match' => 'matches#create'
+  post 'game/play' => 'game#save'
 
   # GET METHODS
   get 'home' => 'main#home'
@@ -15,6 +17,13 @@ Rails.application.routes.draw do
   get 'register_form' => 'main#register'
   get 'logout' => 'main#logout'
   get 'matches/new'
+  get 'matches/new/:id' => 'matches#new'
+  get 'matchdays/:id/start' => 'matchdays#start'
+  get 'matchdays/:id/end' => 'matchdays#end'
+  get 'game/play'
+  get 'game/history' 
+  get 'game/show/:id' => 'game#show'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

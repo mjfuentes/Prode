@@ -1,0 +1,42 @@
+<div align="center" class="center"> 
+
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<h1>Listing Matches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Home team</th>
+      <th>Score</th>
+      <th>Your guess</th>
+      <th>Away team</th>
+      <th>Score</th>
+      <th>Your guess</th>
+      <th>Points</th>
+      <th colspan="7"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item['match']['home_team'] %></td>
+        <td><%= item['match']['home_score'] %></td>
+        <td><%if item['guess']%><%= item['guess']['home_score'] %><%else%> - <%end%></td>
+        <td><%= item['match']['away_team'] %></td>
+        <td><%= item['match']['away_score'] %></td>
+        <td><%if item['guess']%><%= item['guess']['away_score'] %><%else%> - <%end%></td>
+        <td><%if item['guess']%><%= item['guess']['points'] %><%else%> - <%end%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', controller: "main", action: "home" %>
+
+</div>

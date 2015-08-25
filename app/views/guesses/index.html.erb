@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
 
 <h1>Listing Guesses</h1>
 

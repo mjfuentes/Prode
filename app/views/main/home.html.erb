@@ -1,10 +1,13 @@
 <div align="center" class="center">
+	<% if flash[:notice] %>
+		<div id="notice"><%= flash[:notice] %></div>
+	<% end %>
   <h1> Welcome <%= session[:username] %>!</h1>
   <% if is_admin %>
-  	  <form action="/matchdays"><input class="button" type="submit" value="Fechas"/></form>
+  	<%= link_to 'Matchdays', controller: "matchdays", action: "index" %></br>
   <% else %>
-	  <form action="/play"><input class="button" type="submit" value="Play"/></form>
-	  <form action="/history"><input class="button" type="submit" value="History"/></form>
+  	<%= link_to 'Play', controller: "game", action: "play" %>
+  	<%= link_to 'History', controller: "game", action: "history" %>
   <% end %>
-  <form action="/logout"><input class="button" type="submit" value="Logout"/></form>
+  	<%= link_to 'Logout', controller: "main", action: "logout" %>
 </div>

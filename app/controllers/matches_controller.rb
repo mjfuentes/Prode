@@ -14,6 +14,7 @@ class MatchesController < ApplicationController
 
   # GET /matches/new
   def new
+    @matchday = Matchday.find_by id: params[:id]
     @match = Match.new
   end
 
@@ -26,10 +27,13 @@ class MatchesController < ApplicationController
     if session[:userid]
       @player = Player.find_by id: session[:userid]
       if @player.admin
-        @match = Match.new(match_params.merge(:away_score => -1, :home_score => -1, :finished => false, :matchday => (Matchday.new)))
+        @match = Match.new(match_params.merge(:finished => false))
         respond_to do |format|
           if @match.save
-            format.html { redirect_to action: "index", notice: 'Match was successfully created.' }
+            format.html { 
+              flash[:notice] = 'Match was successfully created.'
+              redirect_to @match.matchday 
+            }
             format.json { render :show, status: :created, location: @match }
           else
             render 'matches/new'
@@ -46,7 +50,10 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.update(match_params.merge(:finished => true))
-        format.html { redirect_to action: "index", notice: 'Match was successfully updated.' }
+        format.html { 
+          flash[:notice] = 'Match was successfully updated.'
+          redirect_to @match.matchday
+        }
         format.json { render :index, status: :ok, location: @match }
       else
         format.html { render :edit }
@@ -60,7 +67,10 @@ class MatchesController < ApplicationController
   def destroy
     @match.destroy
     respond_to do |format|
-      format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
+      format.html { 
+        flash[:notice] = 'Match was successfully destroyed.'
+        redirect_to @match.matchday
+      }
       format.json { head :no_content }
     end
   end
@@ -73,6 +83,6 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.require(:match).permit(:home_team, :away_team, :home_score, :away_score, :finished)
+      params.require(:match).permit(:home_team, :away_team, :home_score, :away_score, :finished, :matchday_id)
     end
 end

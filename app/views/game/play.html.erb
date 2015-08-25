@@ -1,0 +1,33 @@
+<div align="center" class="center"> 
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+<%= form_tag("/game/play", method: "post") do %>
+  <% if @guess.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@guess.errors.count, "error") %> prohibited this guess from being saved:</h2>
+
+      <ul>
+      <% @guess.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag @match.home_team%><br>
+    <%= number_field :guess, :home_score %>
+  </div>
+  <div class="field">
+    <%= label_tag @match.away_team%><br>
+    <%= number_field :guess, :away_score %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Submit"%>
+  </div>
+  <%= hidden_field :guess, :match_id, :value => @match.id %>
+  <%= hidden_field :guess, :user_id, :value => @player.id %>
+  <%= link_to 'Back', controller: "main", action: "welcome" %>
+<% end %>
+</div>

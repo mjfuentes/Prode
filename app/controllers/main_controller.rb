@@ -6,6 +6,7 @@ class MainController < ApplicationController
 		if session[:userid]
 			redirect_to '/home'
 		else 
+			notice = params['notice']
 			render 'main/welcome'
 		end
 	end
@@ -17,6 +18,7 @@ class MainController < ApplicationController
 	def home
 		if session[:userid]
 			@player = Player.find_by id: session[:userid]
+			notice = params[:notice]
 			render 'home'
 		else
 			redirect_to ''
@@ -35,12 +37,12 @@ class MainController < ApplicationController
 				session[:userid] = player.id
 				redirect_to '/home'
 			else
-				@error = "Usuario o contraseña invalida"
-				render 'main/login'
+				flash[:notice] = 'Usuario o contraseña invalida.' 
+				rendirect_to :action => 'login'
 			end
 		else
-			@error = "Debe ingresar usuario y contraseña"
-			render 'main/login'
+			flash[:notice] = 'Debe ingresar usuario y contraseña ' 
+			rendirect_to :action => 'login'
 		end
 	end
 
