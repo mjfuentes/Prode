@@ -37,6 +37,12 @@ class MatchdaysController < ApplicationController
     @matchday = Matchday.find_by id: params[:id]
     @matchday.started = true
     if @matchday.save
+      Player.all.each {
+        |player|
+        if player.email
+          PlayerMailer.delay.new_matchday(player)
+        end
+      }
       flash[:notice] = 'Matchday was started successfully.'
       redirect_to @matchday
     else

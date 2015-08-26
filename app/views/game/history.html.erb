@@ -10,7 +10,9 @@
   <thead>
     <tr>
       <th>Matchday</th>
+      <th>Matches</th>
       <th>Guesses</th>
+      <th>Points</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -19,7 +21,9 @@
     <% @matchdays.each do |matchday| %>
       <tr>
         <td><%= matchday['id'] %></td>
-        <td><%= matchday['matches'].count %></td>
+        <td><%= matchday['matches'] %></td>
+        <td><%= matchday['guesses'] %></td>
+        <td><%= matchday['points'] %></td>
         <td><%= link_to 'Show', controller: "game", action: "show", id: matchday['id'] %></td>
       </tr>
     <% end %>

@@ -1,0 +1,32 @@
+<div align="center" class="center"> 
+
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<h1>Ranking</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Points</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player['username'] %></td>
+        <td><%= player['points'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', controller: "main", action: "home" %>
+
+</div>

@@ -47,10 +47,18 @@ class GameController < ApplicationController
 			@player = Player.find_by id: session[:userid]
 			@matchdays = Matchday.where(started:true, finished:true).collect() {
 				|matchday| 
-				{ "id" => matchday.id, "matches" => matchday.matches.collect() {
+				{ "id" => matchday.id, "matches" => matchday.matches.count, "guesses" => matchday.matches.select() {
 					|match|
-					{ "match" => match, "guess" => Guess.find_by(match_id: match.id, user_id: @player.id)}
-				}}
+					 Guess.find_by(match_id: match.id, user_id: @player.id) }.count, "points" => matchday.matches.inject(0) {
+					 	|result, match|
+					 	guess = Guess.find_by(match_id: match.id, user_id: @player.id)
+					 	if guess && guess.points
+					 		result + guess.points
+					 	else
+					 		result
+					 	end
+					 }
+				}
 			}
 		else
 			redirect_to :controller => 'main', :action => 'welcome'
@@ -68,6 +76,24 @@ class GameController < ApplicationController
 		else
 			redirect_to :controller => 'main', :action => 'welcome'
 		end
+	end
+
+	def ranking
+		@players = Player.all.collect { 
+			|player|
+			{"username" => player.username, "points" => Guess.where(user_id:player.id).inject(0) {|result, guess|
+				if guess.points
+					result + guess.points
+				else
+					result
+				end
+				}
+			}
+		}
+		@players = @players.sort_by {
+			|player|
+			player["points"]
+		}.reverse
 	end
 
 	def guess_params

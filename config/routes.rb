@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'game/play'
   get 'game/history' 
   get 'game/show/:id' => 'game#show'
+  get 'game/ranking'
 
 
   # Example of regular route:
