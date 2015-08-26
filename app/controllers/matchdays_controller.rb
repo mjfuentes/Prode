@@ -40,7 +40,7 @@ class MatchdaysController < ApplicationController
       Player.all.each {
         |player|
         if player.email
-          PlayerMailer.delay.new_matchday(player)
+          PlayerMailer.new_matchday(player).deliver_later
         end
       }
       flash[:notice] = 'Matchday was started successfully.'
