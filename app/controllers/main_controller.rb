@@ -38,11 +38,11 @@ class MainController < ApplicationController
 				redirect_to '/home'
 			else
 				flash[:notice] = 'Usuario o contraseña invalida.' 
-				rendirect_to :action => 'login'
+				redirect_to :action => 'login'
 			end
 		else
 			flash[:notice] = 'Debe ingresar usuario y contraseña ' 
-			rendirect_to :action => 'login'
+			redirect_to :action => 'login'
 		end
 	end
 
@@ -50,6 +50,30 @@ class MainController < ApplicationController
 		if session[:userid] then
 			reset_session
 			redirect_to ''
+		end
+	end
+
+	def facebook()
+		@auth = env["omniauth.auth"]
+		if session[:userid]
+			current_user.facebookid = @auth.uid
+			if current_user.save
+				flash[:notice] = 'Facebook added.' 
+				redirect_to :action => 'home'
+			else 
+				flash[:notice] = 'There has been an error.'
+				redirect_to :action => 'home' 
+			end
+		else
+			user = Player.find_by facebookid: @auth.uid
+			if user
+				session[:username] = user.username
+				session[:userid] = user.id
+				redirect_to :action => 'home'
+			else
+				flash[:notice] = 'Not a registered user.' 
+				redirect_to :action => 'login'
+			end
 		end
 	end
 end

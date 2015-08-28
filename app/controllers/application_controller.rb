@@ -4,9 +4,13 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery 
   	def is_admin
   		if session[:userid]
-			@player = Player.find_by id: session[:userid]
-			@player.admin?
+			current_user.admin?
 		end
 	end
-	helper_method :is_admin
+
+	def current_user
+    	@current_user ||= Player.find_by id: session[:userid]
+  	end
+
+	helper_method :is_admin, :current_user
 end

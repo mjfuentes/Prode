@@ -1,7 +1,12 @@
-<div align="center" class="center"> 
+<div class="page-header">
+  <%= link_to :back, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <h1>Add result to Match</h1>
+</div>
+<div align="center" class="center">
 
-<h1>Add result to Match</h1>
+<%= render 'updateform' %>
 
-<%= render 'result_form' %>
-<%= link_to 'Back', controller: "matchdays", action: "show", id: @match.matchday.id %>
 </div>

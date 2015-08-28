@@ -1,8 +1,9 @@
 <div align="center" class="center">
-  <h1> Welcome to Prode 2015!</h1>
-	<% if flash[:notice] %>
-		<div id="notice"><%= flash[:notice] %></div>
-	<% end %>
-  	<%= link_to 'Login', controller: "main", action: "login_form" %></br>
-  	<%= link_to 'Register', controller: "main", action: "register" %>
+	<div class="page-header">
+	<h1>Welcome!</h1>
+	</div>
+  	<ul class="nav nav-pills nav-stacked">
+  	<li role="presentation" ><a href="/login">Login</a></li>
+  	<li role="presentation" ><a href="/register_form">Register</a></li>
+	</ul>
 </div>

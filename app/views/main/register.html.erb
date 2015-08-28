@@ -1,26 +1,17 @@
 <div align="center" class="center">	
-	<% if flash[:notice] %>
-		<div id="notice"><%= flash[:notice] %></div>
-	<% end %>
-
-	<form id="registerForm" action="/players/new" method="post">
-		<div>
-			<label class="form-label">Full name:</label>
-			<input class="form-input" name="name" type="text"/>
-		</div>
-		<div>
-			<label class="form-label">Username:</label>
-			<input class="form-input" name="username" type="text"/>
-		</div>
-		<div>
-			<label class="form-label">Email:</label>
-			<input class="form-input" name="email" type="text"/>
-		</div>
-		<div>
-			<label class="form-label">Password:</label>
-			<input class="form-input" name="password" type="password"/>
-		</div>
-		<input type="submit" class="button" value ="Register"/>
+	<form class="registerForm" action="/players/new" method="post">
+	    <h2 class="form-signin-heading">Register</h2>
+	    <label for="fullname" class="sr-only">Full name</label>
+	    <input type="text" name="fullname" class="form-control" placeholder="Full name" required autofocus autocomplete="off">
+	    <label for="username" class="sr-only">Username</label>
+	    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus autocomplete="off">
+	    <label for="email" class="sr-only">Email</label>
+	    <input type="text" name="email" class="form-control" placeholder="Email" required autofocus autocomplete="off">
+	    <label for="password" class="sr-only">Password</label>
+	    <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off">
+	    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 	</form>
-	<%= link_to 'Back', controller: "main", action: "welcome" %>
+	<ul class="nav nav-pills nav-stacked">
+  	<li role="presentation" ><a href="/">Back</a></li>
+	</ul>
 </div>

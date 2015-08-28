@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :nuevos
   resources :matchdays
   resources :matches
   resources :guesses
@@ -16,14 +17,17 @@ Rails.application.routes.draw do
   get 'login' => 'main#login_form'
   get 'register_form' => 'main#register'
   get 'logout' => 'main#logout'
-  get 'matches/new'
-  get 'matches/new/:id' => 'matches#new'
-  get 'matchdays/:id/start' => 'matchdays#start'
-  get 'matchdays/:id/end' => 'matchdays#end'
+  get 'matches/new/:id' => 'matches#new', :as => :matches_new
+  get 'matchdays/:id/start' => 'matchdays#start', :as => :start_matchday
+  get 'matchdays/:id/end' => 'matchdays#end', :as => :end_matchday
   get 'game/play'
   get 'game/history' 
   get 'game/show/:id' => 'game#show'
   get 'game/ranking'
+
+  #FACEBOOK
+  get 'auth/:provider/callback' => 'main#facebook'
+  get 'auth/failure' => redirect('/')
 
 
   # Example of regular route:

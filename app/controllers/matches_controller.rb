@@ -20,7 +20,7 @@ class MatchesController < ApplicationController
 
   # GET /matches/1/edit
   def edit
-    
+     @matchday = Matchday.find_by id: @match.matchday_id
   end
 
   def create

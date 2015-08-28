@@ -1,37 +1,34 @@
-<div align="center" class="center"> 
 
-<% if flash[:notice] %>
-  <div id="notice"><%= flash[:notice] %></div>
-<% end %>
+<div class="page-header">
+  <%= link_to home_path, class: 'btn btn-default' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+    Back
+  <% end %>
+  <h1>History</h1>
+</div>
 
-<h1>Listing Matchdays</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Matchday</th>
-      <th>Matches</th>
-      <th>Guesses</th>
-      <th>Points</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @matchdays.each do |matchday| %>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
       <tr>
-        <td><%= matchday['id'] %></td>
-        <td><%= matchday['matches'] %></td>
-        <td><%= matchday['guesses'] %></td>
-        <td><%= matchday['points'] %></td>
-        <td><%= link_to 'Show', controller: "game", action: "show", id: matchday['id'] %></td>
+        <th>Matchday</th>
+        <th>Matches</th>
+        <th>Guesses</th>
+        <th>Points</th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'Back', controller: "main", action: "home" %>
-
+    <tbody>
+      <% @matchdays.each do |matchday| %>
+        <tr>
+          <td><%= matchday['id'] %></td>
+          <td><%= matchday['matches'] %></td>
+          <td><%= matchday['guesses'] %></td>
+          <td><%= matchday['points'] %></td>
+          <td><%= link_to 'Show', controller: "game", action: "show", id: matchday['id'] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

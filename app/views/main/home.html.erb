@@ -1,14 +1,14 @@
 <div align="center" class="center">
-	<% if flash[:notice] %>
-		<div id="notice"><%= flash[:notice] %></div>
-	<% end %>
+  <ul class="nav nav-pills nav-stacked">
   <h1> Welcome <%= session[:username] %>!</h1>
   <% if is_admin %>
-  	<%= link_to 'Matchdays', controller: "matchdays", action: "index" %></br>
+    <li role="presentation" ><a href="/matchdays">Matchdays</a></li>
   <% else %>
-  	<%= link_to 'Play', controller: "game", action: "play" %>
-  	<%= link_to 'History', controller: "game", action: "history" %>
-    <%= link_to 'Ranking', controller: "game", action: "ranking" %>
+    <li role="presentation" ><a href="/game/play">Play</a></li>
+    <li role="presentation" ><a href="/game/history">History</a></li>
+    <li role="presentation" ><a href="/game/ranking">Ranking</a></li>
+    <li role="presentation" ><a href="/auth/facebook">Add facebook account</a></li>
   <% end %>
-  	<%= link_to 'Logout', controller: "main", action: "logout" %>
+    <li role="presentation" ><a href="/logout">Logout</a></li>
+  </ul>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826155048) do
+ActiveRecord::Schema.define(version: 20150827013708) do
 
   create_table "guesses", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150826155048) do
     t.datetime "updated_at",             null: false
     t.boolean  "admin",      limit: 1
     t.string   "email",      limit: 255
+    t.integer  "facebookid", limit: 8
   end
 
 end

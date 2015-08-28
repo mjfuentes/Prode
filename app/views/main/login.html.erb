@@ -1,17 +1,15 @@
 <div align="center" class="center">	
-	<% if flash[:notice] %>
-		<div id="notice"><%= flash[:notice] %></div>
-	<% end %>
-	<form id="registerForm" action="/login" method="post">
-		<div>
-			<label class="form-label">Username:</label>
-			<input class="form-input" name="username" type="text"/>
-		</div>
-		<div>
-			<label class="form-label">Password:</label>
-			<input class="form-input" name="password" type="password"/>
-		</div>
-		<input type="submit" class="button" value ="Login"/>
-	</form>
-	<%= link_to 'Back', controller: "main", action: "welcome" %>
+
+<form class="form-signin" action="/login" method="post">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+	<ul class="nav nav-pills nav-stacked">
+  	<li role="presentation" ><a href="/auth/facebook">Login with facebook</a></li>
+  	<li role="presentation" ><a href="/">Back</a></li>
+	</ul>
 </div>

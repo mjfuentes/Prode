@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-
+	acts_as_google_authenticated :column => :username
 	def new
 		@error = ''
 		if ((valid_username(params[:username])) && (valid_email(params[:email])))
