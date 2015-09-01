@@ -16,13 +16,10 @@ class MainController < ApplicationController
 	end
 
 	def home
-		if session[:userid]
-			@player = Player.find_by id: session[:userid]
-			notice = params[:notice]
-			render 'home'
-		else
-			redirect_to ''
-		end
+		check_logged_in or return
+		@player = Player.find_by id: session[:userid]
+		notice = params[:notice]
+		render 'home'
 	end
 
 	def login_form
@@ -44,6 +41,16 @@ class MainController < ApplicationController
 			flash[:notice] = 'Debe ingresar usuario y contraseña ' 
 			redirect_to :action => 'login'
 		end
+	end
+
+	def restart
+		check_logged_in or return
+		check_admin or return
+		Guess.delete_all
+		Match.delete_all
+		Matchday.delete_all
+		flash[:notice] = 'Game has been restarted' 
+		redirect_to :action => 'home'
 	end
 
 	def logout

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'login' => 'main#login_form'
   get 'register_form' => 'main#register'
   get 'logout' => 'main#logout'
+  get 'restart' => 'main#restart'
   get 'matches/new/:id' => 'matches#new', :as => :matches_new
   get 'matchdays/:id/start' => 'matchdays#start', :as => :start_matchday
   get 'matchdays/:id/end' => 'matchdays#end', :as => :end_matchday

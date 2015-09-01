@@ -1,37 +1,42 @@
-<%= form_for(@guess) do |f| %>
-  <% if @guess.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@guess.errors.count, "error") %> prohibited this guess from being saved:</h2>
+<div class="page-header">
+  <%= link_to home_path, class: 'btn btn-default' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+    Back
+  <% end %>
+  <h1>Guessing</h1>
+</div>
 
-      <ul>
-      <% @guess.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div align="center" class="center"> 
+
+  <%= form_for(@guess) do |f| %>
+    <% if @guess.errors.any? %>
+      <div class="alert alert-danger alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4><%= pluralize(@guess.errors.count, "error") %> prohibited this match from being saved:</h4>
+
+        <ul>
+        <% @guess.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="field">
+        <%= f.label @match.home_team %><br>
+        <%= f.text_field :home_score %>
+      </div>
+      <div class="field">
+        <%= f.label @match.away_team  %><br>
+        <%= f.text_field :away_score %>
+      </div>
+      <div class="col-sm-offset-1 col-sm-10">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+      <%= f.hidden_field :match_id, :value => @match.id %>
+      <%= f.hidden_field :user_id, :value => @player.id %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :team_one %><br>
-    <%= f.text_field :team_one %>
-  </div>
-  <div class="field">
-    <%= f.label :team_two %><br>
-    <%= f.text_field :team_two %>
-  </div>
-  <div class="field">
-    <%= f.label :guess_result_id %><br>
-    <%= f.text_field :guess_result_id %>
-  </div>
-  <div class="field">
-    <%= f.label :result_id %><br>
-    <%= f.text_field :result_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

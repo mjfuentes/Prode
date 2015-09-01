@@ -45,7 +45,6 @@ group :development, :test do
   gem 'spring'
 
   gem 'omniauth-facebook'
-  gem "omniauth-google-oauth2"
 
   gem 'bootstrap-generators', '~> 3.3.4'
 end

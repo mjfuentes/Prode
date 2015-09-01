@@ -10,11 +10,14 @@ class MatchdaysController < ApplicationController
   # GET /matchdays/1
   # GET /matchdays/1.json
   def show
+    check_logged_in or return
     @matches = Match.where matchday: @matchday
   end
 
   # GET /matchdays/new
   def new
+    check_logged_in or return
+    check_admin or return
     if (Matchday.where(finished:false).count == 0)
       @matchday = Matchday.new(finished: false, started: false)
       if @matchday.save
@@ -34,6 +37,8 @@ class MatchdaysController < ApplicationController
   end
 
   def start
+    check_logged_in or return
+    check_admin or return
     @matchday = Matchday.find_by id: params[:id]
     @matchday.started = true
     if @matchday.save
@@ -52,6 +57,8 @@ class MatchdaysController < ApplicationController
   end
 
   def end
+    check_logged_in or return
+    check_admin or return
     @matchday = Matchday.find_by id: params[:id]
     @unfinished_matches = Match.find_by(matchday: @matchday, finished: false)
     if (!@unfinished_matches)
@@ -73,6 +80,8 @@ class MatchdaysController < ApplicationController
   # POST /matchdays
   # POST /matchdays.json
   def create
+    check_logged_in or return
+    check_admin or return
     @matchday = Matchday.new(matchday_params)
     respond_to do |format|
       if @matchday.save
@@ -91,6 +100,8 @@ class MatchdaysController < ApplicationController
   # PATCH/PUT /matchdays/1
   # PATCH/PUT /matchdays/1.json
   def update
+    check_logged_in or return
+    check_admin or return
     respond_to do |format|
       if @matchday.update(matchday_params)
         format.html { 
@@ -108,6 +119,8 @@ class MatchdaysController < ApplicationController
   # DELETE /matchdays/1
   # DELETE /matchdays/1.json
   def destroy
+    check_logged_in or return
+    check_admin or return
     @matchday.destroy
     respond_to do |format|
       format.html { 
@@ -135,13 +148,17 @@ class MatchdaysController < ApplicationController
         guesses = Guess.where match_id: match.id
         guesses.each {
           |guess|
-          if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
-            ((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
-            ((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
-            if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
-              guess.points = 5
+          if guess.home_score && guess.away_score
+            if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
+              ((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
+              ((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
+              if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
+                guess.points = 5
+              else
+                guess.points = 2
+              end
             else
-              guess.points = 2
+              guess.points = 0
             end
           else
             guess.points = 0

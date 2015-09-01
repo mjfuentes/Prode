@@ -3,6 +3,7 @@
   <h1> Welcome <%= session[:username] %>!</h1>
   <% if is_admin %>
     <li role="presentation" ><a href="/matchdays">Matchdays</a></li>
+    <li role="presentation" ><a href="/restart">Restart</a></li>
   <% else %>
     <li role="presentation" ><a href="/game/play">Play</a></li>
     <li role="presentation" ><a href="/game/history">History</a></li>

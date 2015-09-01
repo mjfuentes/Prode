@@ -24,8 +24,8 @@ class GuessesController < ApplicationController
   # POST /guesses
   # POST /guesses.json
   def create
+    check_logged_in or return
     @guess = Guess.new(guess_params)
-
     respond_to do |format|
       if @guess.save
         format.html { 
@@ -43,6 +43,7 @@ class GuessesController < ApplicationController
   # PATCH/PUT /guesses/1
   # PATCH/PUT /guesses/1.json
   def update
+    check_logged_in or return
     respond_to do |format|
       if @guess.update(guess_params)
         format.html { 
@@ -60,6 +61,7 @@ class GuessesController < ApplicationController
   # DELETE /guesses/1
   # DELETE /guesses/1.json
   def destroy
+    check_logged_in or return
     @guess.destroy
     respond_to do |format|
       format.html { 

@@ -4,13 +4,29 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery 
   	def is_admin
   		if session[:userid]
-			current_user.admin?
-		end
+		    return current_user.admin?
+		  else
+        return false
+      end
 	end
 
 	def current_user
     	@current_user ||= Player.find_by id: session[:userid]
-  	end
+	end
+
+  def check_logged_in
+    if !session[:userid]
+      redirect_to '/' and return
+    end
+    return true
+  end
+
+  def check_logged_in_admin
+    if !session[:userid] || !is_admin 
+      redirect_to '/' and return
+    end
+    return true
+  end
 
 	helper_method :is_admin, :current_user
 end

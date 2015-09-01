@@ -14,6 +14,8 @@ class MatchesController < ApplicationController
 
   # GET /matches/new
   def new
+    check_logged_in or return
+    check_admin or return
     @matchday = Matchday.find_by id: params[:id]
     @match = Match.new
   end
@@ -24,23 +26,19 @@ class MatchesController < ApplicationController
   end
 
   def create
-    if session[:userid]
-      @player = Player.find_by id: session[:userid]
-      if @player.admin
-        @match = Match.new(match_params.merge(:finished => false))
-        respond_to do |format|
-          if @match.save
-            format.html { 
-              flash[:notice] = 'Match was successfully created.'
-              redirect_to @match.matchday 
-            }
-            format.json { render :show, status: :created, location: @match }
-          else
-            render 'matches/new'
-          end
-        end
+    check_logged_in or return
+    check_admin or return
+    @player = Player.find_by id: session[:userid]
+    @match = Match.new(match_params.merge(:finished => false))
+    respond_to do |format|
+      if @match.save
+        format.html { 
+          flash[:notice] = 'Match was successfully created.'
+          redirect_to @match.matchday 
+        }
+        format.json { render :show, status: :created, location: @match }
       else
-        render json: {error: "No permissions", status: 400}, status: 400
+        render 'matches/new'
       end
     end
   end
@@ -48,6 +46,8 @@ class MatchesController < ApplicationController
   # PATCH/PUT /matches/1
   # PATCH/PUT /matches/1.json
   def update
+    check_logged_in or return
+    check_admin or return
     respond_to do |format|
       if @match.update(match_params.merge(:finished => true))
         format.html { 
@@ -65,6 +65,8 @@ class MatchesController < ApplicationController
   # DELETE /matches/1
   # DELETE /matches/1.json
   def destroy
+    check_logged_in or return
+    check_admin or return
     @match.destroy
     respond_to do |format|
       format.html { 
