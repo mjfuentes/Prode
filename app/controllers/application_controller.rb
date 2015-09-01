@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  def check_logged_in_admin
-    if !session[:userid] || !is_admin 
+  def check_admin
+    if !is_admin
       redirect_to '/' and return
     end
     return true

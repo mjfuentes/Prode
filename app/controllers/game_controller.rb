@@ -67,7 +67,7 @@ class GameController < ApplicationController
 	end
 
 	def ranking
-		@players = Player.all.collect { 
+		@players = Player.where(admin: false).collect { 
 			|player|
 			{"username" => player.username, "points" => Guess.where(user_id:player.id).inject(0) {|result, guess|
 				if guess.points

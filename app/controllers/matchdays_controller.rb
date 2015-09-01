@@ -42,7 +42,8 @@ class MatchdaysController < ApplicationController
     @matchday = Matchday.find_by id: params[:id]
     @matchday.started = true
     if @matchday.save
-      Player.all.each {
+      @players = Player.where admin: false
+      @players.each {
         |player|
         if player.email
           PlayerMailer.new_matchday(player).deliver_later

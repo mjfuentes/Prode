@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 		@error = ''
 		if ((valid_username(params[:username])) && (valid_email(params[:email])))
 			if ((!exists_user(params[:username])) && (!exists_email(params[:email]))) then
-				@player = Player.new(name: params[:name],username: params[:username], password: params[:password], email: params[:email])
+				@player = Player.new(name: params[:name],username: params[:username], password: params[:password], email: params[:email], admin:false)
 				@player.save	
 				flash[:notice] = 'Succesfuly created user'
 				redirect_to :controller => 'main', :action => 'welcome'
