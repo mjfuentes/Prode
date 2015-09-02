@@ -1,49 +1,32 @@
 require 'test_helper'
 
 class MatchdaysControllerTest < ActionController::TestCase
-  # setup do
-  #   @matchday = matchdays(:one)
-  # end
+	
+	def setup
+		@matchday = Matchday.find_by started:true
+	  	@match = Match.new(matchday_id:@matchday.id,home_team: "River", away_team: "Boca")
+	  	@match.home_score = 3
+	  	@match.away_score = 2
+	  	@match.save
+	  	@player_one = Player.find_by username: "matias"
+	  	@player_two = Player.find_by username: "pedro"
+	  	@player_three = Player.find_by username: "juan"
+	  	Guess.new(home_score: 3, away_score: 2,match_id: @match.id,user_id: @player_one.id).save
+	  	Guess.new(home_score: 5, away_score: 1,match_id: @match.id,user_id: @player_two.id).save
+	  	Guess.new(home_score: 2, away_score: 2,match_id: @match.id,user_id: @player_three.id).save
+	  	@controller = MatchdaysController.new
+	end
+	
+	test "points" do
+	  	@controller.calculate_points(@matchday)
 
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  #   assert_not_nil assigns(:matchdays)
-  # end
+	  	guess_one = Guess.find_by match_id: @match.id,user_id: @player_one.id
+	  	guess_two = Guess.find_by match_id: @match.id,user_id: @player_two.id
+	  	guess_three = Guess.find_by match_id: @match.id,user_id: @player_three.id
+	  	assert_equal 5, guess_one.points
+	  	assert_equal 2, guess_two.points
+	  	assert_equal 0, guess_three.points
+  	end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
 
-  # test "should create matchday" do
-  #   assert_difference('Matchday.count') do
-  #     post :create, matchday: {  }
-  #   end
-
-  #   assert_redirected_to matchday_path(assigns(:matchday))
-  # end
-
-  # test "should show matchday" do
-  #   get :show, id: @matchday
-  #   assert_response :success
-  # end
-
-  # test "should get edit" do
-  #   get :edit, id: @matchday
-  #   assert_response :success
-  # end
-
-  # test "should update matchday" do
-  #   patch :update, id: @matchday, matchday: {  }
-  #   assert_redirected_to matchday_path(assigns(:matchday))
-  # end
-
-  # test "should destroy matchday" do
-  #   assert_difference('Matchday.count', -1) do
-  #     delete :destroy, id: @matchday
-  #   end
-
-  #   assert_redirected_to matchdays_path
-  # end
 end

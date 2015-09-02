@@ -132,6 +132,32 @@ class MatchdaysController < ApplicationController
     end
   end
 
+  def calculate_points(matchday)
+    matchday.matches.each { 
+      |match|
+      guesses = Guess.where match_id: match.id
+      guesses.each {
+        |guess|
+        if guess.home_score && guess.away_score
+          if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
+            ((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
+            ((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
+            if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
+              guess.points = 5
+            else
+              guess.points = 2
+            end
+          else
+            guess.points = 0
+          end
+        else
+          guess.points = 0
+        end
+        guess.save
+      }
+    }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_matchday
@@ -141,32 +167,6 @@ class MatchdaysController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def matchday_params
       params[:matchday]
-    end
-
-    def calculate_points(matchday)
-      matchday.matches.each { 
-        |match|
-        guesses = Guess.where match_id: match.id
-        guesses.each {
-          |guess|
-          if guess.home_score && guess.away_score
-            if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
-              ((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
-              ((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
-              if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
-                guess.points = 5
-              else
-                guess.points = 2
-              end
-            else
-              guess.points = 0
-            end
-          else
-            guess.points = 0
-          end
-          guess.save
-        }
-      }
     end
 
 end
