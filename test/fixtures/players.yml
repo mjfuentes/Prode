@@ -4,15 +4,25 @@ one:
   username: "matias"
   password: "1234"
   email: "player_one@hotmail.com"
+  admin: false
 
 two:
   name: "pedro"
   username: "pedro"
   password: "1234"
   email: "player_two@hotmail.com"
+  admin: false
 
 three:
   name: "juan"
   username: "juan"
   password: "1234"
   email: "player_three@hotmail.com"
+  admin: false
+
+four:
+  name: "admin"
+  username: "admin"
+  password: "admin"
+  admin: true
+  email: "admin"

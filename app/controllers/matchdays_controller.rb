@@ -40,95 +40,51 @@ class MatchdaysController < ApplicationController
     check_logged_in or return
     check_admin or return
     @matchday = Matchday.find_by id: params[:id]
-    @matchday.started = true
-    if @matchday.save
-      @players = Player.where admin: false
-      @players.each {
-        |player|
-        if player.email
-          PlayerMailer.new_matchday(player).deliver_later
-        end
-      }
-      flash[:notice] = 'Matchday was started successfully.'
-      redirect_to @matchday
-    else
-        flash[:notice] = 'Matchday could not be started.' 
+    if !@matchday.started 
+      @matchday.started = true
+      if @matchday.save
+        @players = Player.where admin: false
+        @players.each {
+          |player|
+          if player.email
+            PlayerMailer.new_matchday(player).deliver_later
+          end
+        }
+        flash[:notice] = 'Matchday was started successfully.'
         redirect_to @matchday
-    end 
+      else
+          flash[:notice] = 'Matchday could not be started.' 
+          redirect_to @matchday
+      end 
+    else
+      flash[:notice] = 'Matchday already started.' 
+      redirect_to @matchday
+    end
   end
 
   def end
     check_logged_in or return
     check_admin or return
     @matchday = Matchday.find_by id: params[:id]
-    @unfinished_matches = Match.find_by(matchday: @matchday, finished: false)
-    if (!@unfinished_matches)
-      calculate_points(@matchday)
-      @matchday.finished = true
-      if @matchday.save
-        flash[:notice] = 'Matchday was finished successfully.'
-        redirect_to @matchday
+    if !@matchday.finished
+      @unfinished_matches = Match.find_by(matchday: @matchday, finished: false)
+      if (!@unfinished_matches)
+        calculate_points(@matchday)
+        @matchday.finished = true
+        if @matchday.save
+          flash[:notice] = 'Matchday was finished successfully.'
+          redirect_to @matchday
+        else
+          flash[:notice] = 'Matchday could not be finished.'
+          redirect_to @matchday
+        end
       else
-        flash[:notice] = 'Matchday could not be finished.'
+        flash[:notice] = 'There are still active matches.'
         redirect_to @matchday
       end
     else
-      flash[:notice] = 'There are still active matches.'
+      flash[:notice] = 'Matchday already finished.' 
       redirect_to @matchday
-    end
-  end
-
-  # POST /matchdays
-  # POST /matchdays.json
-  def create
-    check_logged_in or return
-    check_admin or return
-    @matchday = Matchday.new(matchday_params)
-    respond_to do |format|
-      if @matchday.save
-        format.html { 
-          flash[:notice] = 'Matchday was successfully created.'
-          redirect_to @matchday
-        }
-        format.json { render :show, status: :created, location: @matchday }
-      else
-        format.html { render :index }
-        format.json { render json: @matchday.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /matchdays/1
-  # PATCH/PUT /matchdays/1.json
-  def update
-    check_logged_in or return
-    check_admin or return
-    respond_to do |format|
-      if @matchday.update(matchday_params)
-        format.html { 
-          flash[:notice] = 'Matchday was successfully updated.' 
-          redirect_to @matchday
-        }
-        format.json { render :show, status: :ok, location: @matchday }
-      else
-        format.html { render :edit }
-        format.json { render json: @matchday.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /matchdays/1
-  # DELETE /matchdays/1.json
-  def destroy
-    check_logged_in or return
-    check_admin or return
-    @matchday.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:notice] = 'Matchday was successfully destroyed.'
-        redirect_to @matchday  
-      }
-      format.json { head :no_content }
     end
   end
 
