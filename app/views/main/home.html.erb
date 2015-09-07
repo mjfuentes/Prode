@@ -2,8 +2,8 @@
   <ul class="nav nav-pills nav-stacked">
   <h1> Bienvenido <%= session[:username] %>!</h1>
   <% if is_admin %>
-    <li role="presentation" ><a href="/matchdays">Fechas</a></li>
-    <li role="presentation" ><a href="/restart">Reiniciar</a></li>
+    <li role="presentation" ><a href="/matchdays">Administrar fechas</a></li>
+    <li role="presentation" ><a href="/restart">Reiniciar Prode</a></li>
   <% else %>
     <li role="presentation" ><a href="/game/play">Jugar</a></li>
     <li role="presentation" ><a href="/game/history">Historial</a></li>
