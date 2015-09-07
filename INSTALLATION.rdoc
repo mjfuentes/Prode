@@ -1,0 +1,58 @@
+Instalacion:
+
+  Esta aplicacion necesita Redis para utilizar el servicio de envio de notificacion por Email.
+  Instalacion de Redis:
+
+  wget http://download.redis.io/redis-stable.tar.gz
+  tar xvzf redis-stable.tar.gz
+  cd redis-stable
+  make
+  sudo cp src/redis-server /usr/local/bin/
+  
+Para instalar la aplicacion necesitamos cumplir los siguientes pasos:
+  1)Instalar Ruby
+    Para instalar ruby vamos a utilizar rbenv y el plugin ruby-build.
+    Instalacion de rbenv y ruby-build:
+      cd
+      git clone git://github.com/sstephenson/rbenv.git .rbenv
+      echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+      echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+      git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+      source ~/.bash_profile
+    
+    Instalacion de Ruby 2.2.1:
+      rbenv install 2.2.1
+      rbenv global 2.2.1
+      
+  2)Instalar bundler
+    gem install bundler
+  
+  3)Instalar mysql
+    sudo apt-get install mysql-server
+    
+  4)Instalar dependencias
+    cd /Prode
+    bundle update
+    
+  5)Configurar la base de datos
+    Editar /Prode/config/database.yml (Linea 16 y 17) para indicar usuario y password de mysql
+    rake db:create db:migrate
+    
+  6)Configurar usuarios de email
+    Editar /Prode/config/initializers/setup_email.rb
+    Indicar address, domain, user_name y password del email deseado para realizar el envio de notificaciones.
+
+
+Ejecucion:
+  1) Correr redis
+    cd /Prode
+    redis-server
+    
+  2) Correr sideqik
+    cd /Prode
+    bundle exec sidekiq -q default -q mailers
+    
+  3) Iniciar el servidor
+    cd /Prode
+    rails server
+  

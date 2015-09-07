@@ -1,4 +1,0 @@
-Requirements:
-
--Redis running on port 6379
--bundle exec sidekiq -q default -q mailers
