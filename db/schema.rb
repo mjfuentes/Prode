@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20150827013708) do
     t.string   "name",       limit: 255
     t.string   "username",   limit: 255
     t.string   "password",   limit: 255
+    t.boolean  "admin",      limit: 1
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.boolean  "admin",      limit: 1
     t.string   "email",      limit: 255
     t.integer  "facebookid", limit: 8
   end
