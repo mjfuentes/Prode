@@ -1,11 +1,11 @@
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
+  :address              => "smtp.live.com",#GMAIL: smtp.gmail.com
   :port                 => 587,
-  :domain               => "gmail.com",
-  :user_name            => "matiasj.fuentes",
-  :password             => "nogood.5.f.2.w.h.neednew",
+  :domain               => "hotmail.com",
+  :user_name            => "USUARIO@DOMINO.com",
+  :password             => "CONTRASEÑA",
   :authentication       => "plain",
   :enable_starttls_auto => true
 }
-
-ActionMailer::Base.default :from => 'matiasj.fuentes@gmail.com'
+ActionMailer::Base.default_url_options = { :host => 'localhost:3000' }
+ActionMailer::Base.default :from => 'USUARIO@DOMINO.com'
