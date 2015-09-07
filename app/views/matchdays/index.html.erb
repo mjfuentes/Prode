@@ -28,8 +28,8 @@
         <tr>
           <td><%= matchday.created_at.strftime("%d/%m/%Y") %></td>
           <td><%= matchday.matches.count %></td>
-          <td><% if matchday.finished %>Finished<%elsif matchday.started %>Iniciada<%else%>Creada<%end%></td>
-          <td><%= link_to 'Show', matchday %></td>
+          <td><% if matchday.finished %>Finalizada<%elsif matchday.started %>Comenzada<%else%>Creada<%end%></td>
+          <td><%= link_to 'Ver', matchday %></td>
         </tr>
       <% end %>
     </tbody>

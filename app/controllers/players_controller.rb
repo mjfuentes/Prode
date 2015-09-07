@@ -3,16 +3,20 @@ class PlayersController < ApplicationController
 		@error = ''
 		if ((valid_username(params[:username])) && (valid_email(params[:email])))
 			if ((!exists_user(params[:username])) && (!exists_email(params[:email]))) then
-				@player = Player.new(name: params[:name],username: params[:username], password: params[:password], email: params[:email], admin:false)
-				@player.save	
-				flash[:notice] = 'Usuario creado correctamente.'
-				redirect_to :controller => 'main', :action => 'welcome'
+				@player = Player.new(name: params[:fullname],username: params[:username], password: params[:password], email: params[:email], admin:false)
+				if @player.save	
+					flash[:notice] = 'Usuario creado correctamente.'
+					redirect_to :controller => 'main', :action => 'welcome'
+				else
+					flash[:error] = 'Hubo un error al crear el usuario'
+					redirect_to :controller => 'main', :action => 'register'
+				end
 			else
 				flash[:error] = 'El usuario ya existe.'
 				redirect_to :controller => 'main', :action => 'register'
 			end
 		else
-			flash[:error] = 'Nombre de usuario invalido'
+			flash[:error] = 'Nombre de usuario o email invalido'
 			redirect_to :controller => 'main', :action => 'register'
 		end
 	end

@@ -23,11 +23,11 @@ class MatchdaysController < ApplicationController
       if @matchday.save
         redirect_to action: "show", id: @matchday.id
       else
-        flash[:notice] = 'Could not create matchday.' 
+        flash[:error] = 'No se pudo crear la fecha.' 
         redirect_to action: "index"
       end
     else
-      flash[:notice] = 'There already is an active matchday.'
+      flash[:error] = 'Ya hay una fecha activa.'
       redirect_to action: "index"
     end 
   end

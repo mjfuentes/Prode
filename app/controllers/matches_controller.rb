@@ -70,7 +70,7 @@ class MatchesController < ApplicationController
     @match.destroy
     respond_to do |format|
       format.html { 
-        flash[:notice] = 'Partido borrado correctamente..'
+        flash[:notice] = 'Partido borrado correctamente.'
         redirect_to @match.matchday
       }
       format.json { head :no_content }
