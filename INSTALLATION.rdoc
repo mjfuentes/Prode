@@ -41,7 +41,6 @@ Para instalar la aplicacion necesitamos cumplir los siguientes pasos:
   6)Configurar usuarios de email
     Editar /Prode/config/initializers/setup_email.rb
     Indicar address, domain, user_name y password del email deseado para realizar el envio de notificaciones.
-    Editar /Prode/app/mailers/application_mailer.rb y modificar "from:"
 
 Ejecucion:
   1) Correr redis
