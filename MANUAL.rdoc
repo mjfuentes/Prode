@@ -1,58 +1,47 @@
-Instalacion:
-
-  Esta aplicacion necesita Redis para utilizar el servicio de envio de notificacion por Email.
-  Instalacion de Redis:
-
-  wget http://download.redis.io/redis-stable.tar.gz
-  tar xvzf redis-stable.tar.gz
-  cd redis-stable
-  make
-  sudo cp src/redis-server /usr/local/bin/
+Usuario Administrador
+  Usuario: admin
+  Contraseña: admin
   
-Para instalar la aplicacion necesitamos cumplir los siguientes pasos:
-  1)Instalar Ruby
-    Para instalar ruby vamos a utilizar rbenv y el plugin ruby-build.
-    Instalacion de rbenv y ruby-build:
-      cd
-      git clone git://github.com/sstephenson/rbenv.git .rbenv
-      echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-      echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-      git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-      source ~/.bash_profile
+  Este usuario puede realizar las siguientes funciones:
+  1) Crear fechas
+    Una fecha representa un conjunto de partidos llevados a cabo durante la misma semana.
+    Al crear una fecha, el administrador puede añadir partidos dentro de esa fecha. No puede haber dos fechas
+    activas al mismo tiempo.
+    Un partido tiene un equipo local y un equipo visitante.
     
-    Instalacion de Ruby 2.2.1:
-      rbenv install 2.2.1
-      rbenv global 2.2.1
-      
-  2)Instalar bundler
-    gem install bundler
+  2) Comenzar fecha
+    Una vez comenzada la fecha. Se les notifica a los usuarios registrados a la aplicacion y
+    se pueden cargar resultados a los partidos de la fecha. Una vez finalizados todos los partidos, se puede
+    finalizar la fecha.
+    
+  3) Finalizar fecha
+    Una vez finalizada la fecha se calculan los puntos para los usuarios que cargaron sus pronosticos de los
+    partidos de la fecha. Con estos puntos se calcula el ranking y los usuarios pueden consultar los mismos
+    desde su historial.
+    
+  4) Reiniciar el juego
+    Una vez finalizado el torneo se permite reiniciar el juego, de esta manera se borran Fechas, partidos y
+    resultados.
+    
+Usuario Jugador:
+  Se permite registro.
   
-  3)Instalar mysql
-    sudo apt-get install mysql-server
+  Este usuario puede realizar las siguiente funciones:
+  
+  1) Jugar
+    Al jugar, se le presentan al usuario partidos de la fecha actual que no haya pronosticado todavia.
+    De esta manera, el usuario puede pronosticar el resultado que cree sucedera en el partido.
+    Una vez que finaliza la carga de pronosticos, el usuario debe esperar a la finalizacion de la fecha.
     
-  4)Instalar dependencias
-    cd /Prode
-    bundle update
+  2) Ranking
+    Aqui se pueden observar los jugadores del prode ordenados por puntos obtenidos a lo largo de las fechas.
     
-  5)Configurar la base de datos
-    Editar /Prode/config/database.yml (Linea 16 y 17) para indicar usuario y password de mysql
-    rake db:create db:migrate
+  3) Historial
+    Aqui el usuario puede consultar los resultados obtenidos en sus pronosticos en las fechas anteriores.
     
-  6)Configurar usuarios de email
-    Editar /Prode/config/initializers/setup_email.rb
-    Indicar address, domain, user_name y password del email deseado para realizar el envio de notificaciones.
-
-
-Ejecucion:
-  1) Correr redis
-    cd /Prode
-    redis-server
-    
-  2) Correr sideqik
-    cd /Prode
-    bundle exec sidekiq -q default -q mailers
-    
-  3) Iniciar el servidor
-    cd /Prode
-    rails server
+  4) Asociar con facebook
+    Para facilitar el acceso, se permite asociar la cuenta actual con una cuenta de facebook con la cual
+    se podra acceder a la aplicacion en el futuro.
+  
+  
   
