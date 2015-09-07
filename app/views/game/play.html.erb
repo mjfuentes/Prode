@@ -1,9 +1,9 @@
 <div class="page-header">
   <%= link_to home_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Back
+    Volver
   <% end %>
-  <h1>Guessing</h1>
+  <h1>Pronosticar</h1>
 </div>
 
 <div align="center" class="center"> 
@@ -32,7 +32,7 @@
         <%= f.text_field :away_score %>
       </div>
       <div class="col-sm-offset-1 col-sm-10">
-        <%= f.submit class: "btn btn-primary" %>
+        <%= f.submit 'Guardar', :class => 'btn btn-primary' %>
       </div>
       <%= f.hidden_field :match_id, :value => @match.id %>
       <%= f.hidden_field :user_id, :value => @player.id %>

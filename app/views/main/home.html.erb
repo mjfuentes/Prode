@@ -1,15 +1,15 @@
 <div align="center" class="center">
   <ul class="nav nav-pills nav-stacked">
-  <h1> Welcome <%= session[:username] %>!</h1>
+  <h1> Bienvenido <%= session[:username] %>!</h1>
   <% if is_admin %>
-    <li role="presentation" ><a href="/matchdays">Matchdays</a></li>
-    <li role="presentation" ><a href="/restart">Restart</a></li>
+    <li role="presentation" ><a href="/matchdays">Fechas</a></li>
+    <li role="presentation" ><a href="/restart">Reiniciar</a></li>
   <% else %>
-    <li role="presentation" ><a href="/game/play">Play</a></li>
-    <li role="presentation" ><a href="/game/history">History</a></li>
+    <li role="presentation" ><a href="/game/play">Jugar</a></li>
+    <li role="presentation" ><a href="/game/history">Historial</a></li>
     <li role="presentation" ><a href="/game/ranking">Ranking</a></li>
-    <li role="presentation" ><a href="/auth/facebook">Add facebook account</a></li>
+    <li role="presentation" ><a href="/auth/facebook">Vincular cuenta de Facebook</a></li>
   <% end %>
-    <li role="presentation" ><a href="/logout">Logout</a></li>
+    <li role="presentation" ><a href="/logout">Salir</a></li>
   </ul>
 </div>

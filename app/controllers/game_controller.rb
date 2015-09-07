@@ -10,11 +10,11 @@ class GameController < ApplicationController
 			if @match 
 				@guess = Guess.new
 			else
-				flash[:notice] = 'Already guessed every match.'
+				flash[:notice] = 'Ya pronosticaste todos los partidos.'
 				redirect_to :controller => 'main', :action => 'home'
 			end
 		else
-			flash[:notice] = 'No matchday currently active.'
+			flash[:error] = 'No hay fecha activa.'
 			redirect_to :controller => 'main', :action => 'home'
 		end
 	end
@@ -24,14 +24,14 @@ class GameController < ApplicationController
 		@guess = Guess.new(guess_params)
 		if (session[:userid] == @guess.user_id)
 			if @guess.save
-				flash[:notice] = 'Result saved succesfully.'
+				flash[:notice] = 'Resultado guardado satisfactoriamente.'
 				redirect_to action: 'play'
 			else
-				flash[:notice] = 'Couldnt save result.'
+				flash[:error] = 'No se pudo guardar el resultado.'
 				redirect_to :controller => 'main', :action => 'home'
 			end
 		else
-			flash[:notice] = 'Invalid user'
+			flash[:error] = 'Usuario invalido.'
 			redirect_to :controller => 'main', :action => 'home'
 		end
 	end
@@ -41,7 +41,7 @@ class GameController < ApplicationController
 		@player = Player.find_by id: session[:userid]
 		@matchdays = Matchday.where(started:true, finished:true).collect() {
 			|matchday| 
-			{ "id" => matchday.id, "matches" => matchday.matches.count, "guesses" => matchday.matches.select() {
+			{ "created_at" => matchday.created_at,"id" => matchday.id, "matches" => matchday.matches.count, "guesses" => matchday.matches.select() {
 				|match|
 				 Guess.find_by(match_id: match.id, user_id: @player.id) }.count, "points" => matchday.matches.inject(0) {
 				 	|result, match|
