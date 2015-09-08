@@ -37,9 +37,6 @@ es:
     ended: Partido finalizado correctamente.
     deleted: Partido borrado satisfactoriamente.
 
-  email:
-    new_matchday: Comenzó la nueva fecha!
-
   views:
     back: Volver
     show: Ver
@@ -120,7 +117,9 @@ es:
       create: Crear partido
       add_result: Cargar resultado
       new: Nuevo partido
-
+  player_mailer:
+    new_matchday:
+      subject: Comenzo la nueva fecha!
 
 
 

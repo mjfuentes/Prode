@@ -36,7 +36,7 @@ Para instalar la aplicacion necesitamos cumplir los siguientes pasos:
     
   5)Configurar la base de datos
     Editar /Prode/config/database.yml (Linea 16 y 17) para indicar usuario y password de mysql
-    rake db:create db:migrate
+    rake db:create db:migrate db:seed
     
   6)Configurar usuarios de email
     Editar /Prode/config/initializers/setup_email.rb
