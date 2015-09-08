@@ -22,7 +22,7 @@
     <%= f.text_field :away_score %>
   </div>
     <div class="col-sm-offset-1 col-sm-10">
-      <%= f.submit "Finalizar partido" %>
+      <%= f.submit t('views.matchday.add_result') %>
     </div>
     <%= f.hidden_field :matchday_id, :value => @matchday.id %>
   </div>

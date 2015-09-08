@@ -1,0 +1,128 @@
+---
+es:
+  game:
+    all_matches_guessed: Ya pronosticaste todos los partidos.
+    no_active_matchday: No hay fecha activa.
+    result_saved: Resultado guardado satisfactoriamente.
+    result_save_error: No se pudo guardar el resultado.
+    restarted: El juego ha sido reiniciado.
+
+  user:
+    invalid: Usuario invalido.
+    facebook_account_added: Cuenta de facebook vinculada.
+    save_fail: Ha habido un error al guardar los cambios.
+    unknown_facebook_account: La cuenta no pertenece a un usuario existente.
+    created: Usuario creado satisfactoriamente.
+    create_error: Ha habido un error al crear el usuario.
+    already_exists: El usuario ya existe.
+    invalid_username_email: El nombre de usuario o email son invalidos.
+
+  login:
+    invalid_user_password: Usuario o contraseña invalida.
+    user_password_required: Debe ingresar usuario y contraseña.
+
+  matchday:
+    creation_error: Ha habido un error al crear la fecha.
+    active_matchday_exists: Ya hay una fecha activa.
+    started: La fecha ha comenzado satisfactoriamente.
+    start_error: Ha habido un error al comenzar la fecha.
+    already_started: La fecha ya ha comenzado.
+    ended: La fecha finalizo correctamente.
+    end_error: Ha habido un error al finalizar la fecha.
+    already_ended: La fecha ya ha finalizado.
+    active_matchdays: Todavia hay partidos activos.
+
+  match:
+    created: Partido creado satisfactoriamente.
+    ended: Partido finalizado correctamente.
+    deleted: Partido borrado satisfactoriamente.
+
+  email:
+    new_matchday: Comenzó la nueva fecha!
+
+  views:
+    back: Volver
+    show: Ver
+    history:
+      title: Historial
+      matchday_date: Fecha semana
+      matches_amount: '# partidos'
+      guesses_amount: '# pronosticos'
+      points: Puntos
+    play:
+      title: Pronosticar
+      save: Guardar
+    ranking:
+      user: Usuario
+      points: Puntos
+      title: Ranking
+    matches:
+      home_team: Local
+      away_team: Visitante
+      home_score: Goles Local
+      away_score: Goles Visitante
+      home_score_guess: Tu pronostico
+      away_score_guess: Tu pronostico
+      points: Puntos
+      title: Partidos de la fecha
+    home:
+      matchdays: Administrar fechas
+      matchdays_short: Fechas
+      reset: Reiniciar fechas
+      play: Jugar
+      history: Historial
+      ranking: Ranking
+      logout: Salir
+      add_facebook: Vincular facebook
+      welcome: Bienvenido
+      home: Inicio
+    login:
+      please_login: Por favor ingrese
+      username: Nombre de usuario
+      password: contraseña
+      facebook: Ingresar con facebook
+      login: Entrar
+    register:
+      title: Registrarse
+      fullname: Nombre completo
+      username: Nombre de usuario
+      password: Contraseña
+      email: Email
+      register: Registrar
+    welcome:
+      title: Bienvenido!
+      login: Entrar
+      register: Registrarse
+    matchdays:
+      new: Nueva fecha
+      title: Listado de fechas
+      week: semana
+      matches_amount: '# de partidos'
+      state: Estado
+      ended: Finalizado
+      started: Comenzado
+      created: Creado
+    matchday:
+      start: Comenzar fecha
+      new_match: Nuevo partido
+      end: Finalizar fecha
+      title: Ver fecha
+      home_team: Equipo local
+      away_team: Equipo visitante
+      home_score: Goles local
+      away_score: Goles visitante
+      add_result: Cargar resultado
+      delete: Borrar
+      confirm_delete: Esta seguro que desea borrar?
+    match:
+      home_team: Equipo local
+      away_team: Equipo visitante
+      create: Crear partido
+      add_result: Cargar resultado
+      new: Nuevo partido
+
+
+
+
+
+

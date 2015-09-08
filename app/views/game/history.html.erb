@@ -2,19 +2,19 @@
 <div class="page-header">
   <%= link_to home_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Volver
+    <%= t('views.back') %>
   <% end %>
-  <h1>Historial</h1>
+  <h1><%= t('views.history.title') %></h1>
 </div>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Fecha Semana</th>
-        <th># Partidos</th>
-        <th>Pronosticos</th>
-        <th>Puntos</th>
+        <th><%= t('views.history.matchday_date') %></th>
+        <th><%= t('views.history.matches_amount') %></th>
+        <th><%= t('views.history.guesses_amount') %></th>
+        <th><%= t('views.history.points') %></th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -26,7 +26,7 @@
           <td><%= matchday['matches'] %></td>
           <td><%= matchday['guesses'] %></td>
           <td><%= matchday['points'] %></td>
-          <td><%= link_to 'Ver', controller: "game", action: "show", id: matchday['id'] %></td>
+          <td><%= link_to t('views.show'), controller: "game", action: "show", id: matchday['id'] %></td>
         </tr>
       <% end %>
     </tbody>

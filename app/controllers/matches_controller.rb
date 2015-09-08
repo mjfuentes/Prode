@@ -33,7 +33,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.save
         format.html { 
-          flash[:notice] = 'Partido creado correctamente.'
+          flash[:notice] = I18n.t 'match.created'
           redirect_to @match.matchday 
         }
         format.json { render :show, status: :created, location: @match }
@@ -51,7 +51,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.update(match_params.merge(:finished => true))
         format.html { 
-          flash[:notice] = 'Partido finalizado correcamente.'
+          flash[:notice] = I18n.t 'match.ended'
           redirect_to @match.matchday
         }
         format.json { render :index, status: :ok, location: @match }
@@ -70,7 +70,7 @@ class MatchesController < ApplicationController
     @match.destroy
     respond_to do |format|
       format.html { 
-        flash[:notice] = 'Partido borrado correctamente.'
+        flash[:notice] = I18n.t 'match.deleted'
         redirect_to @match.matchday
       }
       format.json { head :no_content }

@@ -3,22 +3,22 @@
 <div class="page-header">
   <%= link_to new_matchday_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-plus"></span>
-    Nueva fecha
+    <%= t('views.matchdays.new') %>
   <% end %>
   <%= link_to home_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Volver
+    <%= t('views.back') %>
   <% end %>
-  <h1>Listado de fechas</h1>
+  <h1><%= t('views.matchdays.title') %></h1>
 </div>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Semana</th>
-        <th># de partidos</th>
-        <th>Estado</th>
+        <th><%= t('views.matchdays.week') %></th>
+        <th><%= t('views.matchdays.matches_amount') %></th>
+        <th><%= t('views.matchdays.state') %></th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -28,8 +28,8 @@
         <tr>
           <td><%= matchday.created_at.strftime("%d/%m/%Y") %></td>
           <td><%= matchday.matches.count %></td>
-          <td><% if matchday.finished %>Finalizada<%elsif matchday.started %>Comenzada<%else%>Creada<%end%></td>
-          <td><%= link_to 'Ver', matchday %></td>
+          <td><% if matchday.finished %><%= t('views.matchdays.ended') %><%elsif matchday.started %><%= t('views.matchdays.started') %><%else%><%= t('views.matchdays.created') %><%end%></td>
+          <td><%= link_to t('views.show'), matchday %></td>
         </tr>
       <% end %>
     </tbody>

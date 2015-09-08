@@ -23,11 +23,11 @@ class MatchdaysController < ApplicationController
       if @matchday.save
         redirect_to action: "show", id: @matchday.id
       else
-        flash[:error] = 'No se pudo crear la fecha.' 
+        flash[:error] = I18n.t 'matchday.creation_error'
         redirect_to action: "index"
       end
     else
-      flash[:error] = 'Ya hay una fecha activa.'
+      flash[:error] = I18n.t 'matchday.active_matchday_exists'
       redirect_to action: "index"
     end 
   end
@@ -50,14 +50,14 @@ class MatchdaysController < ApplicationController
             PlayerMailer.new_matchday(player).deliver_later
           end
         }
-        flash[:notice] = 'Fecha comenzada correctamente.'
+        flash[:notice] = I18n.t 'matchday.started'
         redirect_to @matchday
       else
-        flash[:error] = 'La fecha no se pudo comenzar.' 
+        flash[:error] = I18n.t 'matchday.start_error'
         redirect_to @matchday
       end 
     else
-      flash[:error] = 'La fecha ya comenzó.' 
+      flash[:error] = I18n.t 'matchday.already_started'
       redirect_to @matchday
     end
   end
@@ -72,18 +72,18 @@ class MatchdaysController < ApplicationController
         calculate_points(@matchday)
         @matchday.finished = true
         if @matchday.save
-          flash[:notice] = 'Fecha finalizada correctamente.'
+          flash[:notice] = I18n.t 'matchday.ended'
           redirect_to @matchday
         else
-          flash[:error] = 'La fecha no se pudo finalizar.'
+          flash[:error] = I18n.t 'matchday.end_error'
           redirect_to @matchday
         end
       else
-        flash[:error] = 'Todavia hay partidos activos.'
+        flash[:error] = I18n.t 'matchday.active_matchdays'
         redirect_to @matchday
       end
     else
-      flash[:error] = 'La fecha ya finalizó.' 
+      flash[:error] = I18n.t 'matchday.already_ended' 
       redirect_to @matchday
     end
   end

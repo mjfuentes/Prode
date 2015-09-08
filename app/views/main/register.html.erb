@@ -1,17 +1,17 @@
 <div align="center" class="center">	
 	<form class="registerForm" action="/players/new" method="post">
-	    <h2 class="form-signin-heading">Registrarse</h2>
-	    <label for="fullname" class="sr-only">Nombre completo</label>
+	    <h2 class="form-signin-heading"><%= t('views.register.title') %></h2>
+	    <label for="fullname" class="sr-only"><%= t('views.register.fullname') %></label>
 	    <input type="text" name="fullname" class="form-control" placeholder="Full name" required autofocus autocomplete="off">
-	    <label for="username" class="sr-only">Nombre de usuario</label>
+	    <label for="username" class="sr-only"><%= t('views.register.username') %></label>
 	    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus autocomplete="off">
-	    <label for="email" class="sr-only">Email</label>
+	    <label for="email" class="sr-only"><%= t('views.register.email') %></label>
 	    <input type="text" name="email" class="form-control" placeholder="Email" required autofocus autocomplete="off">
-	    <label for="password" class="sr-only">Contraseña</label>
+	    <label for="password" class="sr-only"><%= t('views.register.password') %></label>
 	    <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off">
-	    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+	    <button class="btn btn-lg btn-primary btn-block" type="submit"><%= t('views.register.register') %></button>
 	</form>
 	<ul class="nav nav-pills nav-stacked">
-  	<li role="presentation" ><a href="/">Volver</a></li>
+  	<li role="presentation" ><a href="/"><%= t('views.back') %></a></li>
 	</ul>
 </div>

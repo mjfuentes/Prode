@@ -3,17 +3,17 @@
 <div class="page-header">
   <%= link_to home_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Volver
+    <%= t('views.back') %>
   <% end %>
-  <h1>Ranking</h1>
+  <h1><%= t('views.ranking.title') %></h1>
 </div>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Usuario</th>
-        <th>Puntos</th>
+        <th><%= t('views.ranking.user') %></th>
+        <th><%= t('views.ranking.points') %></th>
       </tr>
     </thead>
 

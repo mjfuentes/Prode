@@ -34,11 +34,11 @@ class MainController < ApplicationController
 				session[:userid] = player.id
 				redirect_to '/home'
 			else
-				flash[:error] = 'Usuario o contraseña invalida.' 
+				flash[:error] = I18n.t 'login.invalid_user_password'
 				redirect_to :action => 'login'
 			end
 		else
-			flash[:error] = 'Debe ingresar usuario y contraseña.' 
+			flash[:error] =  I18n.t 'login.user_password_required'
 			redirect_to :action => 'login'
 		end
 	end
@@ -49,7 +49,7 @@ class MainController < ApplicationController
 		Guess.delete_all
 		Match.delete_all
 		Matchday.delete_all
-		flash[:notice] = 'El juego ha sido reiniciado.' 
+		flash[:notice] = I18n.t 'game.restarted'
 		redirect_to :action => 'home'
 	end
 
@@ -65,10 +65,10 @@ class MainController < ApplicationController
 		if session[:userid]
 			current_user.facebookid = @auth.uid
 			if current_user.save
-				flash[:notice] = 'Cuenta de facebook vinculada.' 
+				flash[:notice] = I18n.t 'user.facebook_account_added'
 				redirect_to :action => 'home'
 			else 
-				flash[:error] = 'Ha habido un error al guardar los cambios.'
+				flash[:error] = I18n.t 'user.save_fail'
 				redirect_to :action => 'home' 
 			end
 		else
@@ -78,7 +78,7 @@ class MainController < ApplicationController
 				session[:userid] = user.id
 				redirect_to :action => 'home'
 			else
-				flash[:error] = 'La cuenta de facebook no corresponde a un usuario existente.' 
+				flash[:error] = I18n.t 'user.unknown_facebook_account'
 				redirect_to :action => 'login'
 			end
 		end

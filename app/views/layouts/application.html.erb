@@ -28,12 +28,12 @@
           <span class="icon-bar"></span>
         </button>
         <% if is_admin %>
-          <%= link_to "Home", "/", class: "navbar-brand" %>
-          <%= link_to "Fechas", "/matchdays", class: "navbar-brand" %>
+          <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
+          <%= link_to t('views.home.matchdays_short'), "/matchdays", class: "navbar-brand" %>
         <% elsif is_logged_in %>
-          <%= link_to "Home", "/", class: "navbar-brand" %>
-          <%= link_to "Historial", "/game/history", class: "navbar-brand" %>
-          <%= link_to "Ranking", "/game/ranking", class: "navbar-brand" %>
+          <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
+          <%= link_to t('views.home.history'), "/game/history", class: "navbar-brand" %>
+          <%= link_to t('views.home.ranking'), "/game/ranking", class: "navbar-brand" %>
         <% end %>
       </div>
       <div id="navbar" class="collapse navbar-collapse">

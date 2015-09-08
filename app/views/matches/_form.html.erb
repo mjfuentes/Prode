@@ -14,15 +14,15 @@
 
   <div class="form-group">
   <div class="field">
-    <%= f.label "Equipo Local" %><br>
+    <%= f.label t('views.match.home_team') %><br>
     <%= f.text_field :home_team %>
   </div>
   <div class="field">
-    <%= f.label "Equipo Visitante" %><br>
+    <%= f.label t('views.match.away_team') %><br>
     <%= f.text_field :away_team %>
   </div>
     <div class="col-sm-offset-1 col-sm-10">
-      <%= f.submit "Crear partido" , :class => 'btn btn-primary' %>
+      <%= f.submit t('views.match.create') , :class => 'btn btn-primary' %>
     </div>
     <%= f.hidden_field :matchday_id, :value => @matchday.id %>
   </div>

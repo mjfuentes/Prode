@@ -1,15 +1,15 @@
 <div align="center" class="center">
   <ul class="nav nav-pills nav-stacked">
-  <h1> Bienvenido <%= session[:username] %>!</h1>
+  <h1> <%= t('views.home.welcome') %> <%= session[:username] %>!</h1>
   <% if is_admin %>
-    <li role="presentation" ><a href="/matchdays">Administrar fechas</a></li>
-    <li role="presentation" ><a href="/restart">Reiniciar Prode</a></li>
+    <li role="presentation" ><a href="/matchdays"><%= t('views.home.matchdays') %></a></li>
+    <li role="presentation" ><a href="/restart"><%= t('views.home.reset') %></a></li>
   <% else %>
-    <li role="presentation" ><a href="/game/play">Jugar</a></li>
-    <li role="presentation" ><a href="/game/history">Historial</a></li>
-    <li role="presentation" ><a href="/game/ranking">Ranking</a></li>
-    <li role="presentation" ><a href="/auth/facebook">Vincular cuenta de Facebook</a></li>
+    <li role="presentation" ><a href="/game/play"><%= t('views.home.play') %></a></li>
+    <li role="presentation" ><a href="/game/history"><%= t('views.home.history') %></a></li>
+    <li role="presentation" ><a href="/game/ranking"><%= t('views.home.ranking') %></a></li>
+    <li role="presentation" ><a href="/auth/facebook"><%= t('views.home.add_facebook') %></a></li>
   <% end %>
-    <li role="presentation" ><a href="/logout">Salir</a></li>
+    <li role="presentation" ><a href="/logout"><%= t('views.home.logout') %></a></li>
   </ul>
 </div>

@@ -4,33 +4,33 @@
 <% if !@matchday.started %>
     <%= link_to start_matchday_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-play"></span>
-    Comenzar!
+    <%= t('views.matchday.start') %>
   <% end %>
     <%= link_to matches_new_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-plus"></span>
-    Nuevo partido
+    <%= t('views.matchday.new_match') %>
   <% end %>
   <% elsif !@matchday.finished %>
       <%= link_to end_matchday_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-stop"></span>
-    Finalizar!
+    <%= t('views.matchday.end') %>
   <% end %>
   <%end%>
     <%= link_to matchdays_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Volver
+    <%= t('views.back') %>
   <% end %>
-  <h1>Mostrar fecha</h1>
+  <h1><%= t('views.matchday.title') %></h1>
 </div>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Local</th>
-        <th>Visitante</th>
-        <th>Goles Local</th>
-        <th>Goles visitante</th>
+        <th><%= t('views.matchday.home_team') %></th>
+        <th><%= t('views.matchday.away_team') %></th>
+        <th><%= t('views.matchday.home_score') %></th>
+        <th><%= t('views.matchday.away_score') %></th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -43,9 +43,9 @@
           <td><% if match.finished %><%= match.home_score %><% else %> - <%end%></td>
           <td><% if match.finished %><%= match.away_score %><% else %> - <%end%></td>
           <% if !@matchday.finished & @matchday.started & (match.finished == false) %>
-          <td><%= link_to 'Agregar resultado', edit_match_path(match) %></td>
+          <td><%= link_to t('views.matchday.add_result'), edit_match_path(match) %></td>
           <% elsif !@matchday.started %>
-          <td><%= link_to 'Borrar', match, method: :delete, data: { confirm: 'Esta seguro que desea borrar?' } %></td>
+          <td><%= link_to t('views.matchday.delete'), match, method: :delete, data: { confirm: t('views.matchday.confirm_delete') } %></td>
           <% else %>
             <td> - </td>
           <% end %>

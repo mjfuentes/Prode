@@ -3,22 +3,22 @@
 <div class="page-header">
   <%= link_to game_history_path, class: 'btn btn-default' do %>
    <span class="glyphicon glyphicon-arrow-left"></span>
-    Volver
+    <%= t('views.back') %>
   <% end %>
-  <h1>Partidos de la fecha</h1>
+  <h1><%= t('views.matches.title') %></h1>
 </div>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Local</th>
-        <th>Goles</th>
-        <th>Tu pronostico</th>
-        <th>Visitante</th>
-        <th>Goles </th>
-        <th>Tu pronostico</th>
-        <th>Puntos</th>
+        <th><%= t('views.matches.home_team') %></th>
+        <th><%= t('views.matches.home_score') %></th>
+        <th><%= t('views.matches.home_score_guess') %></th>
+        <th><%= t('views.matches.away_team') %></th>
+        <th><%= t('views.matches.away_score') %></th>
+        <th><%= t('views.matches.away_score_guess') %></th>
+        <th><%= t('views.matches.points') %></th>
       </tr>
     </thead>
 
