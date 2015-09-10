@@ -1,6 +1,4 @@
 class MainController < ApplicationController
-	def index
-	end
 
 	def welcome
 		if session[:userid]
@@ -11,15 +9,14 @@ class MainController < ApplicationController
 		end
 	end
 
-	def register_form
+	def register
+		@player = Player.new
 		render 'main/register'
 	end
 
 	def home
 		check_logged_in or return
-		@player = Player.find_by id: session[:userid]
-		notice = params[:notice]
-		render 'home'
+		@player = current_user
 	end
 
 	def login_form
@@ -46,9 +43,7 @@ class MainController < ApplicationController
 	def restart
 		check_logged_in or return
 		check_admin or return
-		Guess.delete_all
-		Match.delete_all
-		Matchday.delete_all
+		Matchday.restart
 		flash[:notice] = I18n.t 'game.restarted'
 		redirect_to :action => 'home'
 	end

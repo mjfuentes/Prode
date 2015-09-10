@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :teams
   resources :nuevos
   resources :matchdays
   resources :matches
   resources :guesses
+  resource :players
   # ROOT 
   root 'main#welcome'
 
@@ -21,10 +23,12 @@ Rails.application.routes.draw do
   get 'matches/new/:id' => 'matches#new', :as => :matches_new
   get 'matchdays/:id/start' => 'matchdays#start', :as => :start_matchday
   get 'matchdays/:id/end' => 'matchdays#end', :as => :end_matchday
+  get 'matchdays/:id/simulate' => 'matchdays#simulate_results', :as => :simulate_results
   get 'game/play'
   get 'game/history' 
   get 'game/show/:id' => 'game#show'
   get 'game/ranking'
+  get 'game/simulate' => 'matches#simulate'
 
   #FACEBOOK
   get 'auth/:provider/callback' => 'main#facebook'

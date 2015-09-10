@@ -6,7 +6,11 @@ es:
     result_saved: Resultado guardado satisfactoriamente.
     result_save_error: No se pudo guardar el resultado.
     restarted: El juego ha sido reiniciado.
-
+    matchday_not_found: No se encontró el partido especificado.
+  team:
+    created: Equipo creado correctamente.
+    updated: Equipo actualizado correctamente.
+    deleted: Equipo borrado correctamente.
   user:
     invalid: Usuario invalido.
     facebook_account_added: Cuenta de facebook vinculada.
@@ -31,11 +35,18 @@ es:
     end_error: Ha habido un error al finalizar la fecha.
     already_ended: La fecha ya ha finalizado.
     active_matchdays: Todavia hay partidos activos.
+    simulated: Fecha simulada correctamente.
+    results_simulated: Resultados simulados correctamente.
+    no_active_matchday_exists: No hay fecha activa para simular.
 
   match:
     created: Partido creado satisfactoriamente.
     ended: Partido finalizado correctamente.
     deleted: Partido borrado satisfactoriamente.
+    no_available_teams: No hay equipos disponibles para un nuevo partido.
+  error:
+    format: formato invalido.
+    uniqueness: ya esta siendo utilizado. 
 
   views:
     back: Volver
@@ -62,8 +73,21 @@ es:
       away_score_guess: Tu pronostico
       points: Puntos
       title: Partidos de la fecha
+    teams:
+      title: Administrar equipos
+      new: Nuevo equipo
+      show: Ver
+      edit: Editar
+      edit_title: Editar equipo
+      save: Guardar
+      destroy: Borrar
+      confirm_delete: Esta seguro?
+      create: Crear
+      name: Nombre
     home:
       matchdays: Administrar fechas
+      teams: Administrar equipos
+      simulate: Generar fecha aleatoria
       matchdays_short: Fechas
       reset: Reiniciar fechas
       play: Jugar
@@ -86,6 +110,7 @@ es:
       password: Contraseña
       email: Email
       register: Registrar
+      error: al intentar crear Usuario
     welcome:
       title: Bienvenido!
       login: Entrar
@@ -99,6 +124,7 @@ es:
       ended: Finalizado
       started: Comenzado
       created: Creado
+      simulate_results: Simular resultados
     matchday:
       start: Comenzar fecha
       new_match: Nuevo partido
@@ -120,6 +146,67 @@ es:
   player_mailer:
     new_matchday:
       subject: Comenzo la nueva fecha!
+
+  activerecord:
+    models: 
+      player: 
+        one: Jugador
+        other: Jugadores
+      match: 
+        one: Partido
+        other: Partidos
+      guess: Pronostico
+      team: Equipo
+    attributes:
+      player:
+        username: Nombre de usuario
+        password: Contraseña
+      match:
+        away_team_id: Equipo visitante
+        home_team_id: Equipo local
+        home_score: Goles local
+        away_score: Goles visitante
+      guess:
+        home_score: Goles local
+        away_score: Goles visitante
+      team:
+        name: Nombre
+    errors:
+      template:
+        header:
+          one:   "Hubo un error al guardar %{model}"
+          other: "Hubo %{count} errores al guardar %{model}"
+        body:    "Los errores son en los siguientes campos:"
+      models:
+        player:
+          attributes:
+            email:
+              invalid: formato invalido.
+              taken: ya utilizado.
+            username:
+              invalid: solo debe contener letras y numeros.
+              taken: ya utilizado.  
+            password:
+              invalid: solo debe contener letras y numeros.
+        match:
+          attributes:
+            home_score:
+              not_a_number: no es un numero valido.
+            away_score:
+              not_a_number: no es un numero valido.
+            away_team_id:
+              invalid: es igual al equipo local.
+        guess:
+          attributes:
+            home_score:
+              not_a_number: no es un numero valido.
+            away_score:
+              not_a_number: no es un numero valido.
+        team:
+          attributes:
+            name:
+              taken: no disponible.
+
 
 
 

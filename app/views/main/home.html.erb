@@ -3,6 +3,8 @@
   <h1> <%= t('views.home.welcome') %> <%= session[:username] %>!</h1>
   <% if is_admin %>
     <li role="presentation" ><a href="/matchdays"><%= t('views.home.matchdays') %></a></li>
+    <li role="presentation" ><a href="/teams"><%= t('views.home.teams') %></a></li>
+    <li role="presentation" ><a href="/game/simulate"><%= t('views.home.simulate') %></a></li>
     <li role="presentation" ><a href="/restart"><%= t('views.home.reset') %></a></li>
   <% else %>
     <li role="presentation" ><a href="/game/play"><%= t('views.home.play') %></a></li>

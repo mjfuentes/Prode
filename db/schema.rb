@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827013708) do
+ActiveRecord::Schema.define(version: 20150910204113) do
 
   create_table "guesses", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -31,14 +31,14 @@ ActiveRecord::Schema.define(version: 20150827013708) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.string   "home_team",   limit: 255
-    t.string   "away_team",   limit: 255
-    t.integer  "home_score",  limit: 4
-    t.integer  "away_score",  limit: 4
-    t.boolean  "finished",    limit: 1
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "matchday_id", limit: 4
+    t.integer  "home_team_id", limit: 4
+    t.integer  "away_team_id", limit: 4
+    t.integer  "home_score",   limit: 4
+    t.integer  "away_score",   limit: 4
+    t.boolean  "finished",     limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "matchday_id",  limit: 4
   end
 
   create_table "players", force: :cascade do |t|
@@ -50,6 +50,12 @@ ActiveRecord::Schema.define(version: 20150827013708) do
     t.datetime "updated_at",             null: false
     t.string   "email",      limit: 255
     t.integer  "facebookid", limit: 8
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

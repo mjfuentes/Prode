@@ -2,8 +2,7 @@
   <% if @match.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h4>
-
+      <h4><%= I18n.t('activerecord.errors.template.header', :count => @match.errors.size, :model => @match.class.model_name.human) %>:</h4>
       <ul>
       <% @match.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -13,13 +12,13 @@
   <% end %>
 
   <div class="form-group">
-  <div class="field">
+  <div class="field">  
     <%= f.label t('views.match.home_team') %><br>
-    <%= f.text_field :home_team %>
+    <%= f.select(:home_team_id, options_from_collection_for_select(@teams, :id, :name)) %>
   </div>
   <div class="field">
     <%= f.label t('views.match.away_team') %><br>
-    <%= f.text_field :away_team %>
+    <%= f.select(:away_team_id, options_from_collection_for_select(@teams, :id, :name)) %>
   </div>
     <div class="col-sm-offset-1 col-sm-10">
       <%= f.submit t('views.match.create') , :class => 'btn btn-primary' %>

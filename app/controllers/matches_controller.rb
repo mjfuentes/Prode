@@ -1,26 +1,25 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :edit, :update, :destroy]
 
-  # GET /matches
-  # GET /matches.json
   def index
     @matches = Match.all
   end
 
-  # GET /matches/1
-  # GET /matches/1.json
   def show
   end
 
-  # GET /matches/new
   def new
     check_logged_in or return
     check_admin or return
     @matchday = Matchday.find_by id: params[:id]
+    @teams = Team.get_available @matchday.id
+    if @teams.size < 2
+      flash[:error] = I18n.t 'match.no_available_teams'
+      redirect_to @matchday
+    end 
     @match = Match.new
   end
 
-  # GET /matches/1/edit
   def edit
      @matchday = Matchday.find_by id: @match.matchday_id
   end
@@ -30,61 +29,66 @@ class MatchesController < ApplicationController
     check_admin or return
     @player = Player.find_by id: session[:userid]
     @match = Match.new(match_params.merge(:finished => false))
-    respond_to do |format|
-      if @match.save
-        format.html { 
-          flash[:notice] = I18n.t 'match.created'
-          redirect_to @match.matchday 
-        }
-        format.json { render :show, status: :created, location: @match }
-      else
-        render 'matches/new'
-      end
-    end
+    if @match.valid?
+        @match.save
+        flash[:notice] = I18n.t 'match.created'
+        redirect_to @match.matchday 
+    else
+      @matchday = @match.matchday
+      @teams = Team.get_available @matchday.id
+      render 'matches/new'
+    end  
   end
 
-  # PATCH/PUT /matches/1
-  # PATCH/PUT /matches/1.json
   def update
     check_logged_in or return
     check_admin or return
-    respond_to do |format|
-      if @match.update(match_params.merge(:finished => true))
-        format.html { 
-          flash[:notice] = I18n.t 'match.ended'
-          redirect_to @match.matchday
-        }
-        format.json { render :index, status: :ok, location: @match }
-      else
-        format.html { render :edit }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
+    if @match.update(match_params.merge(:finished => true))
+        flash[:notice] = I18n.t 'match.ended'
+        redirect_to @match.matchday
+    else
+      @matchday = @match.matchday
+      render :edit
     end
   end
 
-  # DELETE /matches/1
-  # DELETE /matches/1.json
   def destroy
     check_logged_in or return
     check_admin or return
     @match.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:notice] = I18n.t 'match.deleted'
-        redirect_to @match.matchday
-      }
-      format.json { head :no_content }
+    flash[:notice] = I18n.t 'match.deleted'
+    redirect_to @match.matchday
+  end
+
+  def simulate
+    check_logged_in or return
+    check_admin or return
+    if Matchday.no_active
+      @matchday = Matchday.new(finished: false, started: false)
+      @matchday.save
+      @available_teams = Team.get_available @matchday.id
+      while @available_teams.size > 1 do
+        @team_one = @available_teams.sample
+        @available_teams.delete(@team_one)
+        @team_two = @available_teams.sample
+        @available_teams.delete(@team_two)
+        Match.new(home_team_id: @team_one.id, away_team_id: @team_two.id, matchday_id: @matchday.id, finished: 0).save
+      end
+      @matchday.start
+      flash[:notice] = I18n.t 'matchday.simulated'
+      redirect_to home_path
+    else 
+      flash[:error] = I18n.t 'matchday.active_matchday_exists'
+      redirect_to home_path
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_match
       @match = Match.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.require(:match).permit(:home_team, :away_team, :home_score, :away_score, :finished, :matchday_id)
+      params.require(:match).permit(:home_team_id, :away_team_id, :home_score, :away_score, :finished, :matchday_id)
     end
 end

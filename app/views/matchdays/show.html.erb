@@ -11,8 +11,12 @@
     <%= t('views.matchday.new_match') %>
   <% end %>
   <% elsif !@matchday.finished %>
-      <%= link_to end_matchday_path, class: 'btn btn-default' do %>
-   <span class="glyphicon glyphicon-stop"></span>
+    <%= link_to simulate_results_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-play"></span>
+    <%= t('views.matchdays.simulate_results') %>
+    <% end %>
+    <%= link_to end_matchday_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-stop"></span>
     <%= t('views.matchday.end') %>
   <% end %>
   <%end%>
@@ -38,8 +42,8 @@
     <tbody>
       <% @matches.each do |match| %>
         <tr>
-          <td><%= match.home_team %></td>
-          <td><%= match.away_team %></td>
+          <td><%= match.home_team.name %></td>
+          <td><%= match.away_team.name %></td>
           <td><% if match.finished %><%= match.home_score %><% else %> - <%end%></td>
           <td><% if match.finished %><%= match.away_score %><% else %> - <%end%></td>
           <% if !@matchday.finished & @matchday.started & (match.finished == false) %>

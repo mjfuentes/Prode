@@ -1,0 +1,33 @@
+<div class="page-header">
+  <%= link_to new_team_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    <%= t('views.teams.new') %>
+  <% end %>
+    <%= link_to home_path, class: 'btn btn-default' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+    <%= t('views.back') %>
+  <% end %>
+  <h1><%= t('views.teams.title') %></h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th><%= t('views.teams.name') %></th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @teams) do |team| %>
+            <td><%= team.name %></td>
+            <td><%= link_to t('views.teams.show'), team %></td>
+        <td><%= link_to t('views.teams.edit'), edit_team_path(team) %></td>
+        <td><%= link_to t('views.teams.destroy'), team, method: :delete, data: { confirm: t('views.teams.confirm_delete') } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
