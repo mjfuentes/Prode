@@ -50,6 +50,29 @@ class GameController < ApplicationController
 		end
 	end
 
+	def simulate
+	    check_logged_in or return
+	    check_admin or return
+	    if Matchday.no_active
+	      @matchday = Matchday.new(finished: false, started: false)
+	      @matchday.save
+	      @available_teams = Team.get_available @matchday.id
+	      while @available_teams.size > 1 do
+	        @team_one = @available_teams.sample
+	        @available_teams.delete(@team_one)
+	        @team_two = @available_teams.sample
+	        @available_teams.delete(@team_two)
+	        Match.new(home_team_id: @team_one.id, away_team_id: @team_two.id, matchday_id: @matchday.id, finished: 0).save
+	      end
+	      @matchday.start
+	      flash[:notice] = I18n.t 'matchday.simulated'
+	      redirect_to home_path
+	    else 
+	      flash[:error] = I18n.t 'matchday.active_matchday_exists'
+	      redirect_to home_path
+	    end
+  	end
+
 	def ranking
 		@players = Player.ranking
 	end

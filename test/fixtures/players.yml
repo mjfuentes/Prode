@@ -1,26 +1,26 @@
 
-one:
+matias:
   name: "matias"
   username: "matias"
   password: "1234"
   email: "player_one@hotmail.com"
   admin: false
 
-two:
+pedro:
   name: "pedro"
   username: "pedro"
   password: "1234"
   email: "player_two@hotmail.com"
   admin: false
 
-three:
+juan:
   name: "juan"
   username: "juan"
   password: "1234"
   email: "player_three@hotmail.com"
   admin: false
 
-four:
+admin:
   name: "admin"
   username: "admin"
   password: "admin"

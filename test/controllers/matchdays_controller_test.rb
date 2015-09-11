@@ -4,17 +4,13 @@ class MatchdaysControllerTest < ActionController::TestCase
 	
 	def setup
 		@matchday = Matchday.find_by started:true
-	  	@match = Match.new(matchday:@matchday,home_team: "River", away_team: "Boca", finished: false)
+	  	@match = Match.new(matchday:@matchday,home_team_id: 1, away_team_id: 2, finished: false)
 	  	@match.home_score = 3
 	  	@match.away_score = 2
 	  	@match.save
-	  	@admin = Player.find_by admin: true
-	  	@player_one = Player.find_by username: "matias"
-	  	@player_two = Player.find_by username: "pedro"
-	  	@player_three = Player.find_by username: "juan"
-	  	Guess.new(home_score: 3, away_score: 2,match_id: @match.id,user_id: @player_one.id).save
-	  	Guess.new(home_score: 5, away_score: 1,match_id: @match.id,user_id: @player_two.id).save
-	  	Guess.new(home_score: 2, away_score: 2,match_id: @match.id,user_id: @player_three.id).save
+	  	Guess.new(home_score: 3, away_score: 2,match_id: @match.id,user_id: players(:matias).id).save
+	  	Guess.new(home_score: 5, away_score: 1,match_id: @match.id,user_id: players(:pedro).id).save
+	  	Guess.new(home_score: 2, away_score: 2,match_id: @match.id,user_id: players(:juan).id).save
 	  	@controller = MatchdaysController.new
 	end
 	
