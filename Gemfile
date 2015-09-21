@@ -50,6 +50,6 @@ group :development, :test do
 
   gem 'cancancan', '~> 1.10'
 
-  
+  gem 'devise'
 end
 

@@ -1,24 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { registrations: 'registrations' }
   resources :teams
-  resources :nuevos
   resources :matchdays
   resources :matches
   resources :guesses
-  resource :players
   # ROOT 
-  root 'main#welcome'
-
+  root 'main#home'
   # POST METHODS
-  post 'players/new'
-  post 'login' => 'main#login'  
   post 'match' => 'matches#create'
   post 'game/play' => 'game#save'
 
   # GET METHODS
   get 'home' => 'main#home'
-  get 'login' => 'main#login_form'
-  get 'register_form' => 'main#register'
-  get 'logout' => 'main#logout'
   get 'restart' => 'main#restart'
   get 'matches/new/:id' => 'matches#new', :as => :matches_new
   get 'matchdays/:id/start' => 'matchdays#start', :as => :start_matchday

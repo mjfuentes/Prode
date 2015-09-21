@@ -1,39 +1,17 @@
 class MainController < ApplicationController
 
 	def welcome
-		if session[:userid]
+		if user_signed_in?
 			redirect_to '/home'
 		end
 	end
 
-	def register
-		@player = Player.new
-		render 'main/register'
-	end
-
 	def home
-		session[:userid] or return
-		@player = current_user
-	end
-
-	def login_form
-		render 'main/login'
-	end
-
-	def login
-		if (params[:username] && params[:password]) then
-			player = Player.find_by username: params[:username], password: params[:password]
-			if (player) then
-				session[:username] = player.username
-				session[:userid] = player.id
-				redirect_to '/home'
-			else
-				flash[:error] = I18n.t 'login.invalid_user_password'
-				redirect_to :action => 'login'
-			end
+		if user_signed_in?
+			@player = current_user
+			render 'main/home'
 		else
-			flash[:error] =  I18n.t 'login.user_password_required'
-			redirect_to :action => 'login'
+			render 'main/welcome'
 		end
 	end
 
@@ -44,16 +22,9 @@ class MainController < ApplicationController
 		redirect_to :action => 'home'
 	end
 
-	def logout
-		if session[:userid] then
-			reset_session
-			redirect_to ''
-		end
-	end
-
 	def facebook()
 		@auth = env["omniauth.auth"]
-		if session[:userid]
+		if user_signed_in?
 			current_user.facebookid = @auth.uid
 			if current_user.save
 				flash[:notice] = I18n.t 'user.facebook_account_added'
@@ -63,14 +34,14 @@ class MainController < ApplicationController
 				redirect_to :action => 'home' 
 			end
 		else
-			user = Player.find_by facebookid: @auth.uid
+			user = User.find_by facebookid: @auth.uid
 			if user
 				session[:username] = user.username
 				session[:userid] = user.id
 				redirect_to :action => 'home'
 			else
 				flash[:error] = I18n.t 'user.unknown_facebook_account'
-				redirect_to :action => 'login'
+				redirect_to new_user_session_path
 			end
 		end
 	end

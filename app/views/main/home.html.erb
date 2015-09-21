@@ -6,13 +6,13 @@
     <li role="presentation" ><a href="/teams"><%= t('views.home.teams') %></a></li>
     <li role="presentation" ><a href="/game/simulate"><%= t('views.home.simulate') %></a></li>
     <li role="presentation" ><a href="/restart"><%= t('views.home.reset') %></a></li>
-    <li role="presentation" ><a href="/logout"><%= t('views.home.logout') %></a></li>
+    <li role="presentation" ><%= link_to destroy_user_session_path, method: 'delete' do %><%= t('views.home.logout') %><% end %></li>
   <% elsif can? :write, Guess %>
     <li role="presentation" ><a href="/game/play"><%= t('views.home.play') %></a></li>
     <li role="presentation" ><a href="/game/history"><%= t('views.home.history') %></a></li>
     <li role="presentation" ><a href="/game/ranking"><%= t('views.home.ranking') %></a></li>
     <li role="presentation" ><a href="/auth/facebook"><%= t('views.home.add_facebook') %></a></li>
-    <li role="presentation" ><a href="/logout"><%= t('views.home.logout') %></a></li>
+    <li role="presentation" ><%= link_to destroy_user_session_path, method: 'delete' do %><%= t('views.home.logout') %><% end %></li>
   <% end %>
   </ul>
 </div>

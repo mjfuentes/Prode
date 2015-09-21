@@ -93,7 +93,7 @@ class Matchday < ActiveRecord::Base
 		return false if self.started 
 		self.started = true
 		self.save
-		Player.new_matchday
+		User.new_matchday
 	end
 
 	def get_next_match(player_id)

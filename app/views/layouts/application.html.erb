@@ -27,8 +27,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
         <% if can? :write, Matchday %>
-          <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
           <%= link_to t('views.home.matchdays_short'), "/matchdays", class: "navbar-brand" %>
         <% elsif can? :write, Guess %>
           <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>

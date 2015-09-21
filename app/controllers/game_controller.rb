@@ -20,7 +20,7 @@ class GameController < ApplicationController
 	def save
 		authorize! :write, Guess
 		@guess = Guess.new(guess_params)
-		if (session[:userid] == @guess.user_id)
+		if (current_user.id == @guess.user_id)
 			if @guess.save
 				flash[:notice] = I18n.t 'game.result_saved'
 				redirect_to action: 'play'
@@ -73,7 +73,7 @@ class GameController < ApplicationController
   	end
 
 	def ranking
-		@players = Player.ranking
+		@players = User.ranking
 	end
 
 	def guess_params

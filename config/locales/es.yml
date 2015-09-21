@@ -52,10 +52,29 @@ es:
   error:
     format: formato invalido.
     uniqueness: ya esta siendo utilizado. 
-
+  devise:
+    failure:
+      user:
+        not_found_in_database: Usuario no encontrado.
+      already_authenticated: Ya esta logeado.
+    registrations:
+      user:
+        signed_up: Usuario registrado correctamente.
+    sessions:
+      user:
+        signed_in: Ha logeado correctamente.
+        signed_out: Ha deslogeado correctamente.
+        already_signed_out: Ya esta deslogeado.
+    passwords:
+      user:
+        send_instructions: Se ha enviado un mail con instrucciones.
   views:
     back: Volver
     show: Ver
+    links:
+      login: Iniciar Sesion
+      signup: Registrarse
+      forgot_password: Olvidaste tu contraseña?
     history:
       title: Historial
       matchday_date: Fecha semana
@@ -108,14 +127,28 @@ es:
       password: contraseña
       facebook: Ingresar con facebook
       login: Entrar
+      email: Email
+      rememberme: Recordarme
+      title: Iniciar sesion
+    forgot:
+      title: Olvidaste tu contraseña?
+    change:
+      title: Cambiar contraseña
+      new: Nueva contraseña
+      confirm: Confirmar nueva contraseña
+      change: Cambiar mi contraseña
+      minimum_chars: caracteres minimo
     register:
       title: Registrarse
       fullname: Nombre completo
       username: Nombre de usuario
       password: Contraseña
+      password_confirmation: Confirmacion contraseña
       email: Email
       register: Registrar
       error: al intentar crear Usuario
+      send_me_instructions: Enviarme instrucciones por correo
+      minimum_chars: caracteres minimo
     welcome:
       title: Bienvenido!
       login: Entrar
@@ -151,7 +184,9 @@ es:
   player_mailer:
     new_matchday:
       subject: Comenzo la nueva fecha!
-
+  errors:
+    messages:
+      not_saved: Error al guardar
   activerecord:
     models: 
       player: 
@@ -162,6 +197,7 @@ es:
         other: Partidos
       guess: Pronostico
       team: Equipo
+      user: Usuario
     attributes:
       player:
         username: Nombre de usuario
@@ -177,6 +213,11 @@ es:
         away_score: Goles visitante
       team:
         name: Nombre
+      user:
+        password: Contraseña
+        password_confirmation: Confirmacion contraseña
+        name: Nombre
+        email: Email
     errors:
       template:
         header:
@@ -210,12 +251,24 @@ es:
           attributes:
             home_score:
               not_a_number: no es un numero valido.
+              blank: vacio.
             away_score:
               not_a_number: no es un numero valido.
+              blank: vacio.
         team:
           attributes:
             name:
               taken: no disponible.
+        user:
+          attributes:
+            password:
+              too_short: demasiado corta
+            password_confirmation:
+              confirmation: no es igual
+            name:
+              blank: vacio
+            email:
+              taken: en uso
 
 
 

@@ -27,7 +27,7 @@
         <tr>
           <td><%= item['match'].home_team.name %></td>
           <td><%if item['match'].matchday.finished%><%= item['match'].home_score %><%else%> - <%end%></td>
-          <td><%if item['guess']%><%= item['match'].home_score %><%else%> - <%end%></td>
+          <td><%if item['guess']%><%= item['guess'].home_score %><%else%> - <%end%></td>
           <td><%= item['match'].away_team.name %></td>
           <td><%if item['match'].matchday.finished%><%= item['match'].away_score %><%else%> - <%end%></td>
           <td><%if item['guess']%><%= item['guess'].away_score %><%else%> - <%end%></td>

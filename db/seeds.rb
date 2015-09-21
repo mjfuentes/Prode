@@ -1,4 +1,4 @@
-Player.create(name: 'admin',username: 'admin', password: 'admin', email: 'admin', admin: true)
+User.create :name => 'admin', :email => 'admin@admin.com', :password => 'password', :password_confirmation => 'password', :admin => 'true'
 Team.create(name: 'River')
 Team.create(name: 'Boca')
 Team.create(name: 'Racing')

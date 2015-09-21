@@ -21,7 +21,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    @player = Player.find_by id: session[:userid]
+    @player = User.find_by id: session[:userid]
     @match = Match.new(match_params.merge(:finished => false))
     if @match.valid?
         @match.save
