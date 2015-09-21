@@ -1,16 +1,8 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @matches = Match.all
-  end
-
-  def show
-  end
+  load_and_authorize_resource
 
   def new
-    check_logged_in or return
-    check_admin or return
     @matchday = Matchday.find_by id: params[:id]
     @teams = Team.get_available @matchday.id
     if @teams.size < 2
@@ -21,12 +13,14 @@ class MatchesController < ApplicationController
   end
 
   def edit
-     @matchday = Matchday.find_by id: @match.matchday_id
+    @matchday = Matchday.find_by id: @match.matchday_id
+    if !@match.is_active
+      flash[:error] = I18n.t 'match.already_finished'
+      redirect_to @match.matchday 
+    end
   end
 
   def create
-    check_logged_in or return
-    check_admin or return
     @player = Player.find_by id: session[:userid]
     @match = Match.new(match_params.merge(:finished => false))
     if @match.valid?
@@ -41,8 +35,6 @@ class MatchesController < ApplicationController
   end
 
   def update
-    check_logged_in or return
-    check_admin or return
     if @match.update(match_params.merge(:finished => true))
         flash[:notice] = I18n.t 'match.ended'
         redirect_to @match.matchday
@@ -53,11 +45,14 @@ class MatchesController < ApplicationController
   end
 
   def destroy
-    check_logged_in or return
-    check_admin or return
-    @match.destroy
-    flash[:notice] = I18n.t 'match.deleted'
-    redirect_to @match.matchday
+    if @match.matchday.not_started
+      @match.destroy
+      flash[:notice] = I18n.t 'match.deleted'
+      redirect_to @match.matchday
+    else
+      flash[:error] = I18n.t 'match.already_started'
+      redirect_to @match.matchday
+    end
   end
 
   private

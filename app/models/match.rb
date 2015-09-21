@@ -6,10 +6,26 @@ class Match < ActiveRecord::Base
 	validates :home_team_id, :away_team_id, :presence => true, numericality: { only_integer: true }
 	validates :home_score, :away_score, numericality: {:allow_blank => true, only_integer: true}
 	validate :not_same_team
+	# validate :valid_home_team
+	# validate :valid_away_team
+	validate :valid_matchday, :on => :create
+	validate :valid_matchday_ended
+	
+	def is_active
+		!self.finished
+	end
 
 	private
 	def not_same_team
 	    errors.add(:away_team_id) unless away_team_id != home_team_id
+	end
+
+	def valid_matchday
+		errors.add(:matchday) unless matchday.not_started
+	end
+
+	def valid_matchday_ended
+		errors.add(:matchday) unless matchday.not_finished
 	end
 
 	def valid_home_team

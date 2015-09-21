@@ -3,9 +3,6 @@ class MainController < ApplicationController
 	def welcome
 		if session[:userid]
 			redirect_to '/home'
-		else 
-			notice = params['notice']
-			render 'main/welcome'
 		end
 	end
 
@@ -15,7 +12,7 @@ class MainController < ApplicationController
 	end
 
 	def home
-		check_logged_in or return
+		session[:userid] or return
 		@player = current_user
 	end
 
@@ -41,8 +38,7 @@ class MainController < ApplicationController
 	end
 
 	def restart
-		check_logged_in or return
-		check_admin or return
+		authorize! :write, Matchday
 		Matchday.restart
 		flash[:notice] = I18n.t 'game.restarted'
 		redirect_to :action => 'home'

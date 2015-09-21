@@ -1,17 +1,18 @@
 <div align="center" class="center">
   <ul class="nav nav-pills nav-stacked">
   <h1> <%= t('views.home.welcome') %> <%= session[:username] %>!</h1>
-  <% if is_admin %>
+  <% if can? :write, Matchday %>
     <li role="presentation" ><a href="/matchdays"><%= t('views.home.matchdays') %></a></li>
     <li role="presentation" ><a href="/teams"><%= t('views.home.teams') %></a></li>
     <li role="presentation" ><a href="/game/simulate"><%= t('views.home.simulate') %></a></li>
     <li role="presentation" ><a href="/restart"><%= t('views.home.reset') %></a></li>
-  <% else %>
+    <li role="presentation" ><a href="/logout"><%= t('views.home.logout') %></a></li>
+  <% elsif can? :write, Guess %>
     <li role="presentation" ><a href="/game/play"><%= t('views.home.play') %></a></li>
     <li role="presentation" ><a href="/game/history"><%= t('views.home.history') %></a></li>
     <li role="presentation" ><a href="/game/ranking"><%= t('views.home.ranking') %></a></li>
     <li role="presentation" ><a href="/auth/facebook"><%= t('views.home.add_facebook') %></a></li>
-  <% end %>
     <li role="presentation" ><a href="/logout"><%= t('views.home.logout') %></a></li>
+  <% end %>
   </ul>
 </div>

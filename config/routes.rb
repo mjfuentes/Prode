@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get 'game/history' 
   get 'game/show/:id' => 'game#show'
   get 'game/ranking'
-  get 'game/simulate' => 'matches#simulate'
+  get 'game/simulate' => 'game#simulate'
 
   #FACEBOOK
   get 'auth/:provider/callback' => 'main#facebook'

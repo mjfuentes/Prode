@@ -1,5 +1,8 @@
 ---
 es:
+  access:
+    denied: No tienes permisos para acceder a la pagina.
+    not_found: Pagina no encontrada.
   game:
     all_matches_guessed: Ya pronosticaste todos los partidos.
     no_active_matchday: No hay fecha activa.
@@ -44,6 +47,8 @@ es:
     ended: Partido finalizado correctamente.
     deleted: Partido borrado satisfactoriamente.
     no_available_teams: No hay equipos disponibles para un nuevo partido.
+    already_finished: El partido ya ha terminado.
+    already_started: El partido ya ha comenzado.
   error:
     format: formato invalido.
     uniqueness: ya esta siendo utilizado. 
@@ -166,6 +171,7 @@ es:
         home_team_id: Equipo local
         home_score: Goles local
         away_score: Goles visitante
+        matchday: Fecha
       guess:
         home_score: Goles local
         away_score: Goles visitante
@@ -196,6 +202,10 @@ es:
               not_a_number: no es un numero valido.
             away_team_id:
               invalid: es igual al equipo local.
+            home_team_id:
+              invalid: no esta disponible.
+            matchday:
+              invalid: invalida.
         guess:
           attributes:
             home_score:

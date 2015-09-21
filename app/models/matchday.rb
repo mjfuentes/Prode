@@ -69,6 +69,14 @@ class Matchday < ActiveRecord::Base
 		self.save
 	end
 
+	def not_started
+		!self.started
+	end
+
+	def not_finished
+		!self.finished
+	end
+
 	def simulate
 		self.matches.each do |match|
 			if !match.finished

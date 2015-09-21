@@ -1,16 +1,18 @@
 class MatchdaysController < ApplicationController
-  load_and_authorize_resource
   before_action :set_matchday, only: [:show, :edit, :update, :destroy]
 
   def index
+    authorize! :manage, Matchday
     @matchdays = Matchday.all
   end
 
   def show
+    authorize! :manage, Matchday
     @matches = Match.where matchday: @matchday
   end
 
   def new
+    authorize! :write, Matchday
     if (Matchday.no_active)
         @matchday = Matchday.new(finished: false, started: false)
         @matchday.save
@@ -22,6 +24,7 @@ class MatchdaysController < ApplicationController
   end
 
   def start
+    authorize! :write, Matchday
     @matchday = Matchday.find_by id: params[:id]
     if @matchday.start
       flash[:notice] = I18n.t 'matchday.started'
@@ -33,6 +36,7 @@ class MatchdaysController < ApplicationController
   end
 
   def end
+    authorize! :write, Matchday
     @matchday = Matchday.find_by id: params[:id]
     if !@matchday.finished
       if @matchday.finish
@@ -49,8 +53,7 @@ class MatchdaysController < ApplicationController
   end
 
   def simulate_results
-    check_logged_in or return
-    check_admin or return
+    authorize! :write, Matchday
     @matchday = Matchday.get_active
     if @matchday
       @matchday.simulate

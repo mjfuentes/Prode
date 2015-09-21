@@ -1,6 +1,6 @@
 class GameController < ApplicationController
 	def play
-		check_logged_in or return
+		authorize! :read, Matchday
 		@matchday = Matchday.get_active
 		if @matchday
 			@match = @matchday.get_next_match(current_user.id)
@@ -18,7 +18,7 @@ class GameController < ApplicationController
 	end
 
 	def save
-		check_logged_in or return
+		authorize! :write, Guess
 		@guess = Guess.new(guess_params)
 		if (session[:userid] == @guess.user_id)
 			if @guess.save
@@ -37,12 +37,12 @@ class GameController < ApplicationController
 	end
 
 	def history
-		check_logged_in or return
+		authorize! :read, Guess
 		@matchdays = Matchday.history_for(current_user.id)
 	end
 
 	def show
-		check_logged_in or return
+		authorize! :read, Matchday
 		@items = Matchday.show_guesses(params[:id],current_user.id)
 		if !@items
 			flash[:error] = I18n.t 'game.matchday_not_found'
@@ -51,8 +51,7 @@ class GameController < ApplicationController
 	end
 
 	def simulate
-	    check_logged_in or return
-	    check_admin or return
+		authorize! :manage, Matchday
 	    if Matchday.no_active
 	      @matchday = Matchday.new(finished: false, started: false)
 	      @matchday.save
