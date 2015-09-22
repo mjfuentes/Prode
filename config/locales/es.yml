@@ -14,6 +14,7 @@ es:
     created: Equipo creado correctamente.
     updated: Equipo actualizado correctamente.
     deleted: Equipo borrado correctamente.
+    cannot_delete: El equipo esta siendo usado.
   user:
     invalid: Usuario invalido.
     facebook_account_added: Cuenta de facebook vinculada.
@@ -121,6 +122,7 @@ es:
       teams: Administrar equipos
       simulate: Generar fecha aleatoria
       matchdays_short: Fechas
+      teams_short: Equipos
       reset: Reiniciar fechas
       play: Jugar
       history: Historial

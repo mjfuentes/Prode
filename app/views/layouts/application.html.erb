@@ -30,6 +30,7 @@
         <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
         <% if can? :write, Matchday %>
           <%= link_to t('views.home.matchdays_short'), "/matchdays", class: "navbar-brand" %>
+          <%= link_to t('views.home.teams_short'), "/teams", class: "navbar-brand" %>
         <% elsif can? :write, Guess %>
           <%= link_to t('views.home.home'), "/", class: "navbar-brand" %>
           <%= link_to t('views.home.history'), "/game/history", class: "navbar-brand" %>

@@ -20,7 +20,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.valid?
       @team.save
-      redirect_to @team, notice: t('team.created') 
+      flash[:notice] = I18n.t 'team.created'
+      redirect_to @team
     else
       render :new 
     end
@@ -28,15 +29,22 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: t('team.updated') 
+      flash[:notice] = I18n.t 'team.updated'
+      redirect_to @team
     else
       render :edit
     end
   end
 
   def destroy
-    @team.destroy
-    redirect_to teams_url, notice: t('team.deleted') 
+    if @team.unused?
+      @team.destroy
+      flash[:notice] = I18n.t 'team.deleted'
+      redirect_to teams_url
+    else
+      flash[:error] = I18n.t 'team.cannot_delete'
+      redirect_to teams_url
+    end
   end
 
   private

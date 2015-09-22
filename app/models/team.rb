@@ -1,6 +1,10 @@
 class Team < ActiveRecord::Base
 	validates :name, :presence => true, uniqueness: true
 
+	def unused?
+		Match.where(["home_team_id = :team or away_team_id = :team", {team: id}]).size == 0
+	end
+
 	def self.get_available(matchday_id)
 		return Team.all.select do |team|
 			available_team(matchday_id, team.id)
