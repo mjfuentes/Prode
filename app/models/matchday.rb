@@ -51,22 +51,7 @@ class Matchday < ActiveRecord::Base
 		self.matches.each do |match|
 			guesses = Guess.where match_id: match.id
 		    guesses.each do |guess|
-		        if guess.home_score && guess.away_score
-					if (((guess.home_score>guess.away_score) && (match.home_score > match.away_score)) ||
-					((guess.home_score<guess.away_score) && (match.home_score < match.away_score)) ||
-					((guess.home_score == guess.away_score) && (match.home_score == match.away_score)))
-						if ((guess.home_score == match.home_score) && (guess.away_score == match.away_score))
-							guess.points = 5
-						else
-							guess.points = 2
-						end
-					else
-			            guess.points = 0
-					end
-		        else
-		          	guess.points = 0
-		        end
-		        guess.save
+				guess.compare_to match
 		    end
 		end
 		self.finished = true

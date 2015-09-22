@@ -1,7 +1,7 @@
 User.create :name => 'admin', :email => 'admin@admin.com', :password => 'password', :password_confirmation => 'password', :admin => 'true'
-Team.create(name: 'River')
-Team.create(name: 'Boca')
-Team.create(name: 'Racing')
+Team.create(name: 'River Plate')
+Team.create(name: 'Boca Juniors')
+Team.create(name: 'Racing Club')
 Team.create(name: 'Independiente')
 Team.create(name: 'San Lorenzo')
 Team.create(name: 'Rosario Central')
