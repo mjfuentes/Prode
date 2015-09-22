@@ -1,13 +1,15 @@
 ended:
-  id: 2
   started: true
   finished: true
+  
 started:
- id: 3
  started: true
  finished: false
- 
+
 not_started:
-  id: 1
   started: false
   finished: false
+
+finished_prueba:
+  started: true
+  finished: true

@@ -1,23 +1,27 @@
 
 matias:
+  id: 1
   name: "matias"
   encrypted_password: 'password'
   email: "player_one@hotmail.com"
   admin: false
 
 pedro:
+  id: 2
   name: "pedro"
   encrypted_password: 'password'
   email: "player_two@hotmail.com"
   admin: false
 
 juan:
+  id: 3
   name: "juan"
   encrypted_password: 'password'
   email: "player_three@hotmail.com"
   admin: false
 
 admin:
+  id: 4
   name: "admin"
   encrypted_password: 'password'
   admin: true

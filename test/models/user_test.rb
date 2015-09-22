@@ -36,4 +36,23 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal(player, player_2)
 	end
 
+	test "ranking_size" do
+		ranking = User.ranking
+		assert_equal ranking.size, User.where(admin: false).size
+	end
+
+	test "ranking_order" do
+		ranking = User.ranking
+		for i in 0..ranking.size-2 
+			assert ranking[i]["points"] >= ranking[i+1]["points"]
+		end
+	end
+
+	test "ranking_values" do
+		ranking = User.ranking
+		assert_equal ranking[0]["points"], 10
+		assert_equal ranking[1]["points"], 5
+		assert_equal ranking[2]["points"], 2
+	end
+
 end

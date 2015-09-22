@@ -1,0 +1,41 @@
+prueba_uno_matias:
+  match_id: 7
+  home_score: 1
+  away_score: 2
+  user_id: 1
+  points: 5
+
+prueba_dos_matias:
+  match_id: 8
+  home_score: 2
+  away_score: 2
+  user_id: 1
+  points: 0
+
+prueba_uno_pedro:
+  match_id: 7
+  home_score: 0
+  away_score: 0
+  user_id: 2
+  points: 0
+
+prueba_dos_pedro:
+  match_id: 8
+  home_score: 4
+  away_score: 5
+  user_id: 2
+  points: 2
+
+prueba_uno_juan:
+  match_id: 7
+  home_score: 1
+  away_score: 2
+  user_id: 3
+  points: 5
+
+prueba_dos_juan:
+  match_id: 8
+  home_score: 3
+  away_score: 4
+  user_id: 3
+  points: 5

@@ -42,3 +42,17 @@ partido_cinco:
   finished: true
   matchday: 2
   
+
+prueba_uno:
+  id: 7
+  home_team_id: 1
+  away_team_id: 2
+  finished: true
+  matchday: finished_prueba
+
+prueba_dos:
+  id: 8
+  home_team_id: 3
+  away_team_id: 4
+  finished: true
+  matchday: finished_prueba

@@ -40,7 +40,8 @@ es:
     active_matchdays: Todavia hay partidos activos.
     simulated: Fecha simulada correctamente.
     results_simulated: Resultados simulados correctamente.
-    no_active_matchday_exists: No hay fecha activa para simular.
+    no_active_matchday: La fecha no esta activa.
+    not_found: Fecha no encontrada.
 
   match:
     created: Partido creado satisfactoriamente.

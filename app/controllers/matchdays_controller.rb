@@ -1,5 +1,5 @@
 class MatchdaysController < ApplicationController
-  before_action :set_matchday, only: [:show, :edit, :update, :destroy]
+  before_action :set_matchday, only: [:show,:start, :end, :simulate_results]
 
   def index
     authorize! :manage, Matchday
@@ -25,7 +25,6 @@ class MatchdaysController < ApplicationController
 
   def start
     authorize! :write, Matchday
-    @matchday = Matchday.find_by id: params[:id]
     if @matchday.start
       flash[:notice] = I18n.t 'matchday.started'
       redirect_to action: "show", id: @matchday.id
@@ -37,7 +36,6 @@ class MatchdaysController < ApplicationController
 
   def end
     authorize! :write, Matchday
-    @matchday = Matchday.find_by id: params[:id]
     if !@matchday.finished
       if @matchday.finish
         flash[:notice] = I18n.t 'matchday.ended'
@@ -54,20 +52,23 @@ class MatchdaysController < ApplicationController
 
   def simulate_results
     authorize! :write, Matchday
-    @matchday = Matchday.get_active
-    if @matchday
+    if @matchday == Matchday.get_active
       @matchday.simulate
       flash[:notice] = I18n.t 'matchday.results_simulated'
       redirect_to action: "show", id: @matchday.id
     else
-      flash[:error] = I18n.t 'matchday.no_active_matchday_exists'
+      flash[:error] = I18n.t 'matchday.no_active_matchday'
       redirect_to home_path
     end
   end
 
   private
     def set_matchday
-      @matchday = Matchday.find(params[:id])
+      @matchday = Matchday.find_by(id: params[:id])
+      if !@matchday
+        flash[:error] = I18n.t 'matchday.not_found'
+        redirect_to action: "index"
+      end
     end
 
     def matchday_params
