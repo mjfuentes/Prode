@@ -53,9 +53,15 @@ es:
     format: formato invalido.
     uniqueness: ya esta siendo utilizado. 
   devise:
+    omniauth_callbacks:
+      user:
+        success: Usuario logeado satisfactoriamente.
+        not_registered: El usuario no se encuentra registrado.
+        facebook_added: Facebook vinculado satisfactoriamente.
     failure:
       user:
         not_found_in_database: Usuario no encontrado.
+        not_registered: El usuario no se encuentra registrado.
       already_authenticated: Ya esta logeado.
     registrations:
       user:

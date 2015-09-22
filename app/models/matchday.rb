@@ -38,6 +38,10 @@ class Matchday < ActiveRecord::Base
 		return Matchday.find_by started:true, finished:false
 	end	
 
+	def self.get_created
+		return Matchday.find_by started:false, finished:false
+	end
+
 	def self.no_active
 		return Matchday.where(finished:false).count == 0
 	end
@@ -78,12 +82,13 @@ class Matchday < ActiveRecord::Base
 	end
 
 	def simulate
+		p self.matches.each
 		self.matches.each do |match|
 			if !match.finished
 				match.home_score = rand(5)
 				match.away_score = rand(5)
 				match.finished = true
-				match.save
+				match.save!
 			end
 		end
 		self.finish

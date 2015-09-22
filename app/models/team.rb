@@ -8,8 +8,8 @@ class Team < ActiveRecord::Base
 	end
 
 	def self.is_available(team_id)
-		@matchday = Matchday.get_active
-		@matchday && available_team(@matchday_id, team_id)
+		@matchday = Matchday.get_created
+		@matchday && available_team(@matchday.id, team_id)
 	end
 	
 	private 

@@ -11,7 +11,8 @@
     <li role="presentation" ><a href="/game/play"><%= t('views.home.play') %></a></li>
     <li role="presentation" ><a href="/game/history"><%= t('views.home.history') %></a></li>
     <li role="presentation" ><a href="/game/ranking"><%= t('views.home.ranking') %></a></li>
-    <li role="presentation" ><a href="/auth/facebook"><%= t('views.home.add_facebook') %></a></li>
+    <li role="presentation" ><%= link_to t('views.home.add_facebook'), user_omniauth_authorize_path(:facebook) %></a></li>
+
     <li role="presentation" ><%= link_to destroy_user_session_path, method: 'delete' do %><%= t('views.home.logout') %><% end %></li>
   <% end %>
   </ul>

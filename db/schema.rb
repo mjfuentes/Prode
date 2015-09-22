@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921193405) do
+ActiveRecord::Schema.define(version: 20150922133147) do
 
   create_table "activity", force: :cascade do |t|
     t.integer "version", limit: 8, null: false
@@ -222,10 +222,14 @@ ActiveRecord::Schema.define(version: 20150921193405) do
     t.boolean  "admin",                  limit: 1
     t.string   "name",                   limit: 255
     t.integer  "facebookid",             limit: 8
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
   add_foreign_key "drink", "image", name: "FK_h4ere0ygvgtqs6hcbhu8o9ct1"
   add_foreign_key "facebook_user", "user", name: "FK_jn890f8vojymgn9tf3jhj2jum"

@@ -6,8 +6,8 @@ class Match < ActiveRecord::Base
 	validates :home_team_id, :away_team_id, :presence => true, numericality: { only_integer: true }
 	validates :home_score, :away_score, numericality: {:allow_blank => true, only_integer: true}
 	validate :not_same_team
-	# validate :valid_home_team
-	# validate :valid_away_team
+	validate :valid_home_team, :on => :create
+	validate :valid_away_team, :on => :create
 	validate :valid_matchday, :on => :create
 	validate :valid_matchday_ended
 	
